@@ -6,6 +6,8 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const compression = require('compression');
+const userRoutes = require('./routes/user.route');
+const ResponseHandler = require('./utils/responseHandler');
 
 const app = express();
 
@@ -27,6 +29,12 @@ app.use(
     saveUninitialized: false,
   })
 );
+
+app.use((req, res, next) => {
+  res.handler = new ResponseHandler(req, res);
+  next();
+});
+
 app.use(express.static('public'));
 app.use(cookieParser());
 app.use(express.json());
@@ -38,5 +46,7 @@ app.use(helmet());
 app.use(mongoSanitize());
 app.use(xss());
 app.use(compression());
+
+app.use('/api/users', userRoutes);
 
 module.exports = { app };

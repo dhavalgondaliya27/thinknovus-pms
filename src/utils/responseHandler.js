@@ -1,25 +1,4 @@
-/* 
-HOW TO USE THIS TO SEND RESPONSE
-
-In your controller you can use
-
-res.handler.*function*(data object*, message* , error*)
-Ex : 
-res.handler.success()
-res.handler.success({userName : "John"})
-res.handler.success({userName : "John"}, "User created")
-res.handler.success(undefined, "User created")
-res.handler.serverError(undefined, undefined, error object)
-
-for message you can pass simple string
-1. We have sent an email to your account
-or for with values like
-We have sent an email to %s,
-{
-    key : "TRANSLATION KEY",
-    value : "value of %s"
-}
-*/
+const STATUS_CODES = require('./constants').STATUS_CODES;
 
 class ResponseHandler {
   constructor(req, res) {
@@ -27,14 +6,21 @@ class ResponseHandler {
     this.res = res;
   }
 
-  sender(code, data, meta, error) {
-    this.res.status(code).json({
-      data,
-      meta,
-    });
+  sender(code, data, message, error) {
+    const isSuccess = code >= 200 && code < 300;
+    const response = {
+      statusCode: code,
+      data: data || null,
+      message: message || '',
+      success: isSuccess,
+    };
+
+    this.res.status(code).json(response);
+
     if (error) {
       // HANDLE LOGS AND OTHER STUFF
-      // console.log("ResponseHandler -> sender -> error", error)
+      console.error('ResponseHandler -> sender -> error', error);
+      // You can integrate a logging service here if needed
     }
   }
 
@@ -43,95 +29,62 @@ class ResponseHandler {
   }
 
   // 2XX SUCCESS
-  success(data, meta) {
-    this.sender(STATUS_CODES.SUCCESS, data, meta);
+  success(data, message) {
+    this.sender(STATUS_CODES.SUCCESS, data, message);
   }
 
-  created(data, meta) {
-    this.sender(STATUS_CODES.CREATED, data, meta);
+  created(data, message) {
+    this.sender(STATUS_CODES.CREATED, data, message);
   }
 
-  validationMessage(meta) {
-    this.sender(STATUS_CODES.SUCCESS, null, meta);
+  noContent(message = 'No content available') {
+    this.sender(STATUS_CODES.NO_CONTENT, null, message);
   }
 
   // 4XX CLIENT ERROR
-  badRequest(data, message, info) {
-    this.sender(
-      STATUS_CODES.BAD_REQUEST,
-      message || 'Request line contained invalid characters.',
-      data,
-      info
-    );
+  badRequest(message = 'Request line contained invalid characters.', data, error) {
+    this.sender(STATUS_CODES.BAD_REQUEST, data, message, error);
   }
 
-  unauthorized(data, message, info) {
-    this.sender(
-      STATUS_CODES.UNAUTHORIZED,
-      message || 'You are not authorized to access.',
-      data,
-      info
-    );
+  unauthorized(message = 'You are not authorized to access.', data, error) {
+    this.sender(STATUS_CODES.UNAUTHORIZED, data, message, error);
   }
 
-  forbidden(data, message, info) {
-    this.sender(STATUS_CODES.FORBIDDEN, message || 'You are not authorized to access.', data, info);
+  forbidden(message = 'Access denied.', data, error) {
+    this.sender(STATUS_CODES.FORBIDDEN, data, message, error);
   }
 
-  alreadyReport(data, message, info) {
-    this.sender(STATUS_CODES.NOT_VALID_DATA, message || 'Already Reported', data, info);
+  alreadyReported(message = 'Already Reported', data, error) {
+    this.sender(STATUS_CODES.ALREADY_REPORTED, data, message, error);
   }
 
-  notValidEmail(data, message, info) {
-    this.sender(
-      STATUS_CODES.NOT_FOUND,
-      message || 'Mailchimp is use only valid email, Please use valid email!!',
-      data,
-      info
-    );
+  notValidEmail(message = 'Please use a valid email!', data, error) {
+    this.sender(STATUS_CODES.UNPROCESSABLE_ENTITY, data, message, error);
   }
 
-  notFound(data, message, info) {
-    this.sender(
-      STATUS_CODES.NOT_FOUND,
-      message || 'Resource associated with the request could not be found.',
-      data,
-      info
-    );
+  notFound(message = 'Resource associated with the request could not be found.', data, error) {
+    this.sender(STATUS_CODES.NOT_FOUND, data, message, error);
   }
 
-  conflict(data, message, info) {
-    this.sender(
-      STATUS_CODES.CONFLICT,
-      message || 'Provided information already exist!',
-      data,
-      info
-    );
+  conflict(message = 'Provided information already exists!', data, error) {
+    this.sender(STATUS_CODES.CONFLICT, data, message, error);
   }
 
-  preconditionFailed(data, message, info) {
-    this.sender(
-      STATUS_CODES.PRECONDITION_FAILED,
-      message || 'Please complete other steps first',
-      data,
-      info
-    );
+  preconditionFailed(message = 'Please complete other steps first', data, error) {
+    this.sender(STATUS_CODES.PRECONDITION_FAILED, data, message, error);
   }
 
-  validationError(data, message, info) {
-    this.sender(STATUS_CODES.VALIDATION_ERROR, message || 'Validation error !', data, info);
+  validationError(message = 'Validation error!', data, error) {
+    this.sender(STATUS_CODES.VALIDATION_ERROR, data, message, error);
   }
 
   // 5XX SERVER ERROR
-  serverError(error, data, message) {
-    if (error.name === 'ValidationError') return this.validationError(error);
+  serverError(error, message = 'Request failed due to an internal error.', data = null) {
+    if (error && error.name === 'ValidationError') {
+      return this.validationError(error.message, null, error);
+    }
 
-    this.sender(
-      STATUS_CODES.SERVER_ERROR,
-      message || 'Request failed due to an internal error.',
-      data,
-      error
-    );
+    this.sender(STATUS_CODES.SERVER_ERROR, data, message, error);
   }
 }
 
