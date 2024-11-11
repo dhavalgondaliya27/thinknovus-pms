@@ -16,7 +16,7 @@ app.use(
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  })
+  }),
 );
 
 app.options('*', cors());
@@ -26,7 +26,7 @@ app.use(
     secret: 'PMS',
     resave: false,
     saveUninitialized: false,
-  })
+  }),
 );
 
 app.use(express.static('public'));
