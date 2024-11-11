@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepare": "husky",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "eslint": "npx eslint ."
   },
   "keywords": [
     "backend",
@@ -24,11 +25,13 @@
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "eslint-plugin-node": "^11.1.0",
     "express": "^4.21.1",
     "express-mongo-sanitize": "^2.2.0",
     "express-session": "^1.18.1",
     "helmet": "^8.0.0",
     "joi": "^17.13.3",
+    "module": "^1.2.5",
     "mongoose": "^8.8.0",
     "nodemon": "^3.1.7",
     "xss-clean": "^0.1.4"
