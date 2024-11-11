@@ -7,7 +7,6 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const compression = require('compression');
 const userRoutes = require('./routes/user.route');
-const ResponseHandler = require('./utils/responseHandler');
 
 const app = express();
 
@@ -24,16 +23,11 @@ app.options('*', cors());
 
 app.use(
   session({
-    secret: 'Spacerenta',
+    secret: 'PMS',
     resave: false,
     saveUninitialized: false,
   })
 );
-
-app.use((req, res, next) => {
-  res.handler = new ResponseHandler(req, res);
-  next();
-});
 
 app.use(express.static('public'));
 app.use(cookieParser());
