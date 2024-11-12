@@ -15,7 +15,7 @@
 
 // module.exports = ApiError;
 
-class AppError extends Error {
+class ApiError extends Error {
   constructor(message, statusCode) {
     super(message);
 
@@ -27,4 +27,4 @@ class AppError extends Error {
   }
 }
 
-module.exports = AppError;
+module.exports = ApiError;
