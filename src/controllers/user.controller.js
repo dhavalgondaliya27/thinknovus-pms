@@ -13,7 +13,7 @@ exports.createUser = asyncHandler(async (req, res, next) => {
     if (error) {
       return next(new ApiError(error.message, STATUS_CODES.BAD_REQUEST));
     }
-    const userExists = await userService.findUserBEmail(email);
+    const userExists = await userService.findUserByEmail(email);
     if (userExists) {
       return next(new ApiError('user alreddy exist', STATUS_CODES.CONFLICT));
     }
