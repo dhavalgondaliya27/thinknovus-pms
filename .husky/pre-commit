@@ -1,3 +1,20 @@
 #!/bin/sh
-npm run eslint
+echo ':building_construction::builder: Styling, testing and building your project before committing'
+# Check Prettier standards
+npm run format ||
+(
+    echo ':nauseated_face::face_vomiting::nauseated_face::face_vomiting: Its F**KING RAW - Your styling looks disgusting. :nauseated_face::face_vomiting::nauseated_face::face_vomiting:
+            Prettier Check Failed. Run npm run format, add changes and try commit again.';
+    false;
+)
+# Check ESLint Standards
+npm run eslint ||
+(
+        echo ':triumph::basketball::wave::triumph: Get that weak s**t out of here! :triumph::basketball::wave::triumph:
+                ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
+        false;
+)
+# If everything passes... Now we can commit
+echo ':thinking_face::thinking_face::thinking_face::thinking_face:... Alright... Code looks good to me... :thinking_face::thinking_face::thinking_face::thinking_face:'
+
 npm run test

@@ -3,7 +3,19 @@ const nodePlugin = require('eslint-plugin-node');
 
 module.exports = [
   {
-    ignores: ['node_modules/**', 'dist/**', 'build/**', '.env', '/package-lock.json' , '.github' ,'/.idea', 'kube', '.gitignore', '/public', '.husky/pre-commit'],
+    ignores: [
+      'node_modules/**',
+      'dist/**',
+      'build/**',
+      '.env',
+      '/package-lock.json',
+      '.github',
+      '/.idea',
+      'kube',
+      '.gitignore',
+      '/public',
+      '.husky/pre-commit',
+    ],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'commonjs',
