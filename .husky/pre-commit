@@ -1,20 +1,22 @@
 #!/bin/sh
-echo ':building_construction::builder: Styling, testing and building your project before committing'
+echo '🏗️👷 Preparing your project: running styling, tests, and build checks before committing...'
 # Check Prettier standards
 npm run format ||
 (
-    echo ':nauseated_face::face_vomiting::nauseated_face::face_vomiting: Its F**KING RAW - Your styling looks disgusting. :nauseated_face::face_vomiting::nauseated_face::face_vomiting:
+    echo '🚨🖌️🚨 Code styling needs attention! Please format your code. 🚨🖌️🚨
             Prettier Check Failed. Run npm run format, add changes and try commit again.';
     false;
 )
 # Check ESLint Standards
 npm run eslint ||
 (
-        echo ':triumph::basketball::wave::triumph: Get that weak s**t out of here! :triumph::basketball::wave::triumph:
+        echo '🔍⚠️ Please review and fix the issues identified above. ⚠️🔍
                 ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
         false;
 )
-# If everything passes... Now we can commit
-echo ':thinking_face::thinking_face::thinking_face::thinking_face:... Alright... Code looks good to me... :thinking_face::thinking_face::thinking_face::thinking_face:'
 
 npm run test
+
+# If everything passes... Now we can commit
+echo '✅👍... All checks passed. Code looks good!!! 👍✅'
+
