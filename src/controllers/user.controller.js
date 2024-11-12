@@ -28,6 +28,8 @@ exports.createUser = asyncHandler(async (req, res, next) => {
   } catch (error) {
     console.log(error);
     // throw new ApiError(500, null, 'something want wrong');
-    return next(new ApiError('something want wrong', STATUS_CODES.SERVER_ERROR));
+    return next(
+      new ApiError('something want wrong', STATUS_CODES.SERVER_ERROR),
+    );
   }
 });
