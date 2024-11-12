@@ -1,5 +1,6 @@
 #!/bin/sh
 echo '🏗️👷 Preparing your project: running styling, tests, and build checks before committing...'
+
 # Check Prettier standards
 npm run format ||
 (
@@ -14,9 +15,12 @@ npm run eslint ||
                 ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
         false;
 )
-
-npm run test
+# Check test cases
+npm run test ||
+(
+        echo '🚨🧪 Test suite failed. Please review the failed tests, make corrections, and try committing again. 🧪🚨'
+        false;
+)
 
 # If everything passes... Now we can commit
 echo '✅👍... All checks passed. Code looks good!!! 👍✅'
-

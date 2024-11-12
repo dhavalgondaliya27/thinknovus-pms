@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepare": "husky",
-    "pre-commit": "lint-staged",
+    "pre-commit": "lint-staged && eslint . && prettier --check .",
     "eslint": "npx eslint .",
     "format": "prettier --write \"**/*.{js,json,css,md}\"",
     "check-format": "prettier --check \"**/*.{js,json,css,md}\""

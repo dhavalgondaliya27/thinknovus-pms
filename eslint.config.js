@@ -14,7 +14,6 @@ module.exports = [
       'kube',
       '.gitignore',
       '/public',
-      '.husky/pre-commit',
     ],
     languageOptions: {
       ecmaVersion: 'latest',
