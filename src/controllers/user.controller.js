@@ -22,8 +22,6 @@ exports.createUser = asyncHandler(async (req, res, next) => {
       .status(201)
       .json(new ApiResponse(201, user, 'User created successfully'));
   } catch (error) {
-    return next(
-      new ApiError(error.message, STATUS_CODES.SERVER_ERROR),
-    );
+    return next(new ApiError(error.message, STATUS_CODES.SERVER_ERROR));
   }
 });
