@@ -7,6 +7,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const compression = require('compression');
 const userRoutes = require('./routes/user.route');
+const errorHandler = require('./middleware/error.middleware');
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use(helmet());
 app.use(mongoSanitize());
 app.use(xss());
 app.use(compression());
+app.use(errorHandler);
 
 app.use('/api/users', userRoutes);
 
