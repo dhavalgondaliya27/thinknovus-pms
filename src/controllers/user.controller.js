@@ -2,43 +2,30 @@ const userService = require('../services/user.service');
 const ApiError = require('../utils/ApiError');
 const ApiResponse = require('../utils/ApiResponse');
 const asyncHandler = require('../utils/asyncHandler');
-const STATUS_CODES = require('../utils/constants').STATUS_CODES;
+const { STATUS_CODES } = require('../utils/constants');
 
-exports.createUser = asyncHandler(async (req, res, next) => {
+exports.createUser = asyncHandler(async (req, res) => {
   const { email, firstname, lastname } = req.body;
   // Input validation
   if (!firstname) {
-    return next(
-      new ApiError(
-        STATUS_CODES.BAD_REQUEST,
-        'Firstname is required',
-        null,
-        'validation',
-      ),
-    );
+    return res
+      .status(STATUS_CODES.BAD_REQUEST)
+      .json(
+        new ApiError(STATUS_CODES.BAD_REQUEST, null, 'Firstname is require'),
+      );
   }
   if (!email) {
-    return next(
-      new ApiError(
-        STATUS_CODES.BAD_REQUEST,
-        'Email is required',
-        null,
-        'validation',
-      ),
-    );
+    return res
+      .status(STATUS_CODES.BAD_REQUEST)
+      .json(new ApiError(STATUS_CODES.BAD_REQUEST, null, 'Email is require'));
   }
 
   // Check if user already exists
   const userExists = await userService.findUserByEmail(email);
   if (userExists) {
-    return next(
-      new ApiError(
-        STATUS_CODES.CONFLICT,
-        'User already exists',
-        null,
-        'conflict',
-      ),
-    );
+    return res
+      .status(STATUS_CODES.CONFLICT)
+      .json(new ApiError(STATUS_CODES.CONFLICT, null, 'User alreddy Exist'));
   }
 
   // Create new user
