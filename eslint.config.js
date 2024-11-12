@@ -39,7 +39,6 @@ module.exports = [
       // Best Practices
       complexity: ['warn', 10],
       'max-depth': ['warn', 4],
-      'max-lines': ['warn', 100],
       'max-nested-callbacks': ['warn', 4],
       'max-params': ['warn', 4],
       // 'max-statements': ['warn', 10],

@@ -1,26 +1,20 @@
 const userService = require('../services/user.service');
-const ApiError = require('../utils/ApiError');
+// const ApiError = require('../utils/ApiError');
+const AppError = require('../utils/ApiError');
 const ApiResponse = require('../utils/ApiResponse');
 const asyncHandler = require('../utils/asyncHandler');
-const STATUS_CODES = require('../utils/constants').STATUS_CODES;
+const { STATUS_CODES } = require('../utils/constants');
 
-exports.createUser = asyncHandler(async (req, res) => {
+exports.createUser = asyncHandler(async (req, res, next) => {
   try {
     const { email, firstname, lastname } = req.body;
-    if (!firstname) {
-      return res
-        .status(STATUS_CODES.BAD_REQUEST)
-        .json(new ApiError(STATUS_CODES.BAD_REQUEST, null, 'firstname is require'));
-    } else if (!email) {
-      return res
-        .status(STATUS_CODES.BAD_REQUEST)
-        .json(new ApiError(STATUS_CODES.BAD_REQUEST, null, 'email is require'));
-    }
+
     const userExists = await userService.findUserByEmail(email);
     if (userExists) {
-      return res
-        .status(STATUS_CODES.CONFLICT)
-        .json(new ApiError(STATUS_CODES.CONFLICT, null, 'user alreddy exist'));
+      console.log('wdwef');
+      // return next(new ApiError(STATUS_CODES.CONFLICT, null, 'user alreddy exist'));
+      // throw new ApiError(STATUS_CODES.CONFLICT, null, 'user alreddy exist');
+      return next(new AppError('user alreddy exist', STATUS_CODES.CONFLICT));
     }
     const user = await userService.createUser({ email, firstname, lastname });
     res
@@ -28,6 +22,7 @@ exports.createUser = asyncHandler(async (req, res) => {
       .json(new ApiResponse(201, user, 'User created successfully'));
   } catch (error) {
     console.log(error);
-    throw new ApiError(500, null, 'something want wrong');
+    // throw new ApiError(500, null, 'something want wrong');
+    return next(new AppError('something want wrong', STATUS_CODES.SERVER_ERROR));
   }
 });
