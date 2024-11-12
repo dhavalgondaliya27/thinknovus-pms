@@ -7,7 +7,6 @@
   "useTabs": false,
   "arrowParens": "always",
   "jsxSingleQuote": true,
-  "jsxBracketSameLine": false,
   "proseWrap": "preserve",
   "endOfLine": "crlf"
 }

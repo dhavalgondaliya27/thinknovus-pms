@@ -4,11 +4,16 @@ const ApiError = require('../utils/ApiError');
 const ApiResponse = require('../utils/ApiResponse');
 const asyncHandler = require('../utils/asyncHandler');
 const { STATUS_CODES } = require('../utils/constants');
+const userSchema = require('../validators/user.validator');
 
 exports.createUser = asyncHandler(async (req, res, next) => {
   try {
     const { email, firstname, lastname } = req.body;
+    const { error } = userSchema.validate(req.body);
 
+    if (error) {
+      return next(new ApiError(error.message, STATUS_CODES.BAD_REQUEST));
+    }
     const userExists = await userService.findUserByEmail(email);
     if (userExists) {
       console.log('wdwef');
