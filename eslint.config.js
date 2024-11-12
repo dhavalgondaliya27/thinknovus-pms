@@ -3,7 +3,18 @@ const nodePlugin = require('eslint-plugin-node');
 
 module.exports = [
   {
-    ignores: ['node_modules/**', 'dist/**', 'build/**', '.env', '/package-lock.json' , '.github' ,'/.idea', 'kube', '.gitignore', '/public', '.husky/pre-commit'],
+    ignores: [
+      'node_modules/**',
+      'dist/**',
+      'build/**',
+      '.env',
+      '/package-lock.json',
+      '.github',
+      '/.idea',
+      'kube',
+      '.gitignore',
+      '/public',
+    ],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'commonjs',
@@ -39,7 +50,6 @@ module.exports = [
       // Best Practices
       complexity: ['warn', 10],
       'max-depth': ['warn', 4],
-      'max-lines': ['warn', 100],
       'max-nested-callbacks': ['warn', 4],
       'max-params': ['warn', 4],
       // 'max-statements': ['warn', 10],

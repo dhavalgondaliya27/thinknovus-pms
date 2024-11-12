@@ -13,6 +13,6 @@ connectDB()
       console.log(`🚀 Server is running at port no : ${appConfig.port}`);
     });
   })
-  .catch(err => {
+  .catch((err) => {
     console.log('MONGO db connection failed !!!! ', err);
   });
