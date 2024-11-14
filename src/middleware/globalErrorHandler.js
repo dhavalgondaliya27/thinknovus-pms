@@ -115,7 +115,7 @@
 //   }
 // };
 
-const ApiError = require('./../utils/ApiError');
+const ApiError = require('./../utils/apiError');
 
 const handleCastErrorDB = (err) => {
   const message = `Invalid ${err.path}: ${err.value}.`;
