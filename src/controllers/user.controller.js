@@ -9,7 +9,6 @@ exports.createUser = asyncHandler(async (req, res, next) => {
   try {
     const { email, firstname, lastname } = req.body;
     const { error } = userSchema.validate(req.body);
-    console.log('sdwxxwe');
 
     if (error) {
       return next(new ApiError(error.message, STATUS_CODES.BAD_REQUEST));
