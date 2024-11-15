@@ -10,7 +10,7 @@ const userRoutes = require('./routes/user.route');
 const globalErrorHandler = require('./middleware/globalErrorHandler');
 
 const app = express();
-
+,,,,,
 app.use(
   cors({
     origin: ['http://localhost:3000'],
