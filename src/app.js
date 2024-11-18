@@ -6,9 +6,8 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const compression = require('compression');
-const userRoutes = require('./routes/user.route');
 const globalErrorHandler = require('./middleware/globalErrorHandler');
-
+const mainRoutes = require('./route');
 const app = express();
 
 app.use(
@@ -42,8 +41,7 @@ app.use(mongoSanitize());
 app.use(xss());
 app.use(compression());
 
-app.use('/api/users', userRoutes);
-
+mainRoutes(app);
 app.use(globalErrorHandler);
 
 module.exports = { app };

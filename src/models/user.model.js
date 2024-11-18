@@ -2,6 +2,15 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema(
   {
+    // role: {
+    //   type: String,
+    //   enum: ['admin', 'employee', 'hr', 'manager', 'sales', 'finance'],
+    //   required: true,
+    // },
+    // is_admin: {
+    //   type: Boolean,
+    //   required: true,
+    // },
     firstname: {
       type: String,
       required: true,
@@ -18,15 +27,30 @@ const userSchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
       trim: true,
-      match: [
-        /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-        'Please fill a valid email address',
-      ],
     },
+    // userName: {
+    //   type: String,
+    //   required: true,
+    //   unique: true,
+    //   trim: true,
+    // },
+    // mobile: {
+    //   type: String,
+    //   required: true,
+    //   unique: true,
+    // },
+    // profileImage: {
+    //   type: String,
+    //   default: null,
+    // },
+    // timeone: {
+    //   type: String,
+    //   required: true,
+    // },
   },
   {
     timestamps: true,
   },
 );
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('user', userSchema);
