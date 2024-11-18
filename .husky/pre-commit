@@ -1,26 +1,26 @@
-# #!/bin/sh
-# echo '🏗️👷 Preparing your project: running styling, tests, and build checks before committing...'
+#!/bin/sh
+echo '🏗️👷 Preparing your project: running styling, tests, and build checks before committing...'
 
-# # Check Prettier standards
-# npm run format ||
-# (
-#     echo '🚨🖌️🚨 Code styling needs attention! Please format your code. 🚨🖌️🚨
-#             Prettier Check Failed. Run npm run format, add changes and try commit again.';
-#     false;
-# )
-# # Check ESLint Standards
-# npm run eslint ||
-# (
-#         echo '🔍⚠️ Please review and fix the issues identified above. ⚠️🔍
-#                 ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
-#         false;
-# )
-# # Check test cases
-# npm run test ||
-# (
-#         echo '🚨🧪 Test suite failed. Please review the failed tests, make corrections, and try committing again. 🧪🚨'
-#         false;
-# )
+# Check Prettier standards
+npm run format ||
+(
+    echo '🚨🖌️🚨 Code styling needs attention! Please format your code. 🚨🖌️🚨
+            Prettier Check Failed. Run npm run format, add changes and try commit again.';
+    false;
+)
+# Check ESLint Standards
+npm run eslint ||
+(
+        echo '🔍⚠️ Please review and fix the issues identified above. ⚠️🔍
+                ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
+        false;
+)
+# Check test cases
+npm run test ||
+(
+        echo '🚨🧪 Test suite failed. Please review the failed tests, make corrections, and try committing again. 🧪🚨'
+        false;
+)
 
-# # If everything passes... Now we can commit
-# echo '✅👍... All checks passed. Code looks good!!! 👍✅'
+# If everything passes... Now we can commit
+echo '✅👍... All checks passed. Code looks good!!! 👍✅'
