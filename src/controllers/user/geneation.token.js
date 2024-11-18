@@ -21,7 +21,7 @@ module.exports.getUnixEpochWithAddSeconds = getUnixEpochWithAddSeconds;
 
 module.exports.generateToken = (user) => {
   const payload = {
-    user_id : user._id,
+    user_id: user._id,
     first_name: user.firstname,
     last_name: user.lastname,
     email: user.email,

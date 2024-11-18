@@ -115,7 +115,7 @@
 //   }
 // };
 
-const ApiError = require('./../utils/ApiError');
+const ApiError = require('./../utils/apiError');
 
 const handleCastErrorDB = (err) => {
   const message = `Invalid ${err.path}: ${err.value}.`;
@@ -147,7 +147,7 @@ const sendErrorDev = (err, req, res) => {
   if (req.originalUrl.startsWith('/api')) {
     return res.status(err.statusCode).json({
       status: err.status,
-      error: err,
+      statusCode: err.statusCode,
       message: err.message,
       stack: err.stack,
     });

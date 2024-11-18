@@ -1,10 +1,10 @@
 const userService = require('../../services/user.service');
-const  userSchema  = require('../../validators/user.validator');
+const userSchema = require('../../validators/user.validator');
 const ApiError = require('../../utils/ApiError');
 const ApiResponse = require('../../utils/ApiResponse');
 const { STATUS_CODES } = require('../../utils/constants');
 const asyncHandler = require('../../utils/asyncHandler');
-const {generateToken} = require('../../controllers/user/geneation.token');
+const { generateToken } = require('../../controllers/user/geneation.token');
 
 exports.createUser = asyncHandler(async (req, res, next) => {
   try {
@@ -28,9 +28,17 @@ exports.createUser = asyncHandler(async (req, res, next) => {
 
     return res
       .status(201)
-      .json(new ApiResponse(201, { user, token, refreshToken }, 'User created successfully'));
+      .json(
+        new ApiResponse(
+          201,
+          { user, token, refreshToken },
+          'User created successfully',
+        ),
+      );
   } catch (error) {
     console.log(error);
-    return next(new ApiError('Something went wrong', STATUS_CODES.SERVER_ERROR));
+    return next(
+      new ApiError('Something went wrong', STATUS_CODES.SERVER_ERROR),
+    );
   }
 });
