@@ -1,7 +1,7 @@
 const userService = require('../../services/user.service');
 const userSchema = require('../../validators/user.validator');
-const ApiError = require('../../utils/ApiError');
-const ApiResponse = require('../../utils/ApiResponse');
+const ApiError = require('../../utils/apiError');
+const ApiResponse = require('../../utils/apiResponse');
 const { STATUS_CODES } = require('../../utils/constants');
 const asyncHandler = require('../../utils/asyncHandler');
 const { generateToken } = require('../../controllers/user/geneation.token');

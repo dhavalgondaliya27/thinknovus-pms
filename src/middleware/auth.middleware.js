@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const ApiError = require('../utils/ApiError');
+const ApiError = require('../utils/apiError');
 const asyncHandler = require('../utils/asyncHandler');
 const userModel = require('../models/user.model');
 const {
