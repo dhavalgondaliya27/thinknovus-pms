@@ -5,6 +5,6 @@ const { verifyJWT } = require('../../middleware/auth.middleware');
 const router = Router();
 
 router.post('/user/create', userController.createUser);
-router.get('/user/getcurrentuser',verifyJWT,userController.getCurrentUser);
-router.get('/user/login',userController.loginUser);
+router.get('/user/getcurrentuser', verifyJWT, userController.getCurrentUser);
+router.get('/user/login', userController.loginUser);
 module.exports = router;

@@ -36,7 +36,10 @@ exports.createUser = asyncHandler(async (req, res, next) => {
   } catch (error) {
     console.log(error);
     return next(
-      new ApiError(error.message || 'Something went wrong', STATUS_CODES.SERVER_ERROR),
+      new ApiError(
+        error.message || 'Something went wrong',
+        STATUS_CODES.SERVER_ERROR,
+      ),
     );
   }
 });
@@ -63,7 +66,10 @@ exports.getCurrentUser = asyncHandler(async (req, res, next) => {
   } catch (error) {
     console.log(error);
     return next(
-      new ApiError(error.message || 'Something went wrong', STATUS_CODES.SERVER_ERROR),
+      new ApiError(
+        error.message || 'Something went wrong',
+        STATUS_CODES.SERVER_ERROR,
+      ),
     );
   }
 });
@@ -109,7 +115,10 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
   } catch (error) {
     console.log(error);
     return next(
-      new ApiError(error.message || 'Something went wrong', STATUS_CODES.SERVER_ERROR),
+      new ApiError(
+        error.message || 'Something went wrong',
+        STATUS_CODES.SERVER_ERROR,
+      ),
     );
   }
 });
