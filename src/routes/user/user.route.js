@@ -1,8 +1,10 @@
-const express = require('express');
+const { Router } = require('express');
 const userController = require('../../controllers/user/user.controller');
-// const {verifyJWT} = require('../../middleware/auth.middleware');
+const { verifyJWT } = require('../../middleware/auth.middleware');
 
-const router = express.Router();
+const router = Router();
 
 router.post('/user/create', userController.createUser);
+router.get('/user/getcurrentuser', verifyJWT, userController.getCurrentUser);
+router.get('/user/login', userController.loginUser);
 module.exports = router;
