@@ -1,3 +1,5 @@
+const appConfig = require('./appConfig');
+
 const config = {
   auth: {
     opts: {
@@ -6,8 +8,8 @@ const config = {
     },
     token: {
       tokenExpire: '30d',
-      refreshTokenExpire: '120d',
-      secret: 'tom and jerry',
+      refreshTokenExpire: '36500d',  //100 years
+      secret: appConfig.jwtSecret,
     },
   },
 };
