@@ -1,20 +1,23 @@
+const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
+const {
+  config: {
+    auth: {
+      opts: { salt },
+    },
+  },
+} = require('../config/config');
 
-const createUser = async ({ email, firstname, lastname }) => {
-  try {
-    const userExists = await User.findOne({ email });
+const createUser = async (data) => {
+  const newUser = await User.create(data);
+  await newUser.save();
 
-    if (userExists) {
-      throw new Error('User already exists');
-    }
+  return newUser;
+};
 
-    const newUser = new User({ email, firstname, lastname });
-    await newUser.save();
-
-    return newUser;
-  } catch (err) {
-    throw new Error('Error creating user: ' + err.message);
-  }
+const findUserByID = async (id) => {
+  const user = await User.findById(id).select('-password');
+  return user;
 };
 
 const findUserByEmail = async (email) => {
@@ -22,7 +25,24 @@ const findUserByEmail = async (email) => {
   return user;
 };
 
+const findUserByRefreshToken = async (refreshToken) => {
+  const user = await User.findOne({ refreshToken });
+  return user;
+};
+
+const hashPassword = async (password) => {
+  return await bcrypt.hash(password, salt);
+};
+
+const comparePassword = async (inputPassword, hashedPassword) => {
+  return await bcrypt.compare(inputPassword, hashedPassword);
+};
+
 module.exports = {
   createUser,
+  findUserByID,
   findUserByEmail,
+  findUserByRefreshToken,
+  hashPassword,
+  comparePassword,
 };

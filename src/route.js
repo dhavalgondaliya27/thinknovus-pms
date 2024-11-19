@@ -1,5 +1,3 @@
-// const express = require('express');
-// const router = express.Router();
 const userRoutes = require('./routes/user/user.route');
 
 const apiVersion = '/api/v1';

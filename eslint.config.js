@@ -35,7 +35,6 @@ module.exports = [
       'no-duplicate-imports': 'error',
       'no-useless-concat': 'error',
       'no-var': 'error',
-      'prefer-const': 'error',
       'prefer-arrow-callback': 'error',
       'no-trailing-spaces': 'error',
       'no-multiple-empty-lines': ['error', { max: 1 }],
@@ -48,8 +47,8 @@ module.exports = [
       'node/no-missing-import': 'error',
       'node/process-exit-as-throw': 'error',
       // Best Practices
-      complexity: ['warn', 10],
-      'max-depth': ['warn', 4],
+      // complexity: ['warn', 10],
+      // 'max-depth': ['warn', 4],
       'max-nested-callbacks': ['warn', 4],
       'max-params': ['warn', 4],
       // 'max-statements': ['warn', 10],
