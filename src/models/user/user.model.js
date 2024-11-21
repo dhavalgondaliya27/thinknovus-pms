@@ -4,7 +4,7 @@ const User = new mongoose.Schema(
   {
     emp_code: {
       type: String,
-      required: true,
+      // required: true,
     },
     role: {
       type: String,
@@ -12,17 +12,17 @@ const User = new mongoose.Schema(
     },
     is_admin: {
       type: Boolean,
-      required: true,
+      // required: true,
       default: false,
     },
     username: {
       type: String,
-      required: true,
+      // required: true,
       unique: true,
     },
     firstname: {
       type: String,
-      required: true,
+      // required: true,
       trim: true,
     },
     middlename: {
@@ -31,19 +31,19 @@ const User = new mongoose.Schema(
     },
     lastname: {
       type: String,
-      required: true,
+      // required: true,
       trim: true,
     },
     email: {
       type: String,
-      required: true,
+      // required: true,
       unique: true,
       lowercase: true,
       trim: true,
     },
     mobile: {
       type: String,
-      required: true,
+      // required: true,
       unique: true,
     },
     profile_image: {
@@ -52,7 +52,7 @@ const User = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
+      // required: true,
     },
     DOB: {
       type: Date,

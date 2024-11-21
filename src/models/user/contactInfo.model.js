@@ -8,19 +8,19 @@ const ContactInfo = new Schema(
       ref: 'User',
       required: true,
     },
-    name: {
+    person_name: {
       type: String,
     },
-    relation: {
+    person_relation: {
       type: String,
     },
-    phone: {
+    person_phone: {
       type: String,
     },
-    occupation: {
+    person_occupation: {
       type: String,
     },
-    comment: {
+    person_comment: {
       type: String,
     },
   },

@@ -8,6 +8,8 @@ const xss = require('xss-clean');
 const compression = require('compression');
 const globalErrorHandler = require('./middleware/globalErrorHandler');
 const mainRoutes = require('./route');
+const ApiError = require('./utils/apiError');
+const { STATUS_CODES } = require('./utils/constants');
 const app = express();
 
 app.use(
@@ -42,6 +44,11 @@ app.use(xss());
 app.use(compression());
 
 mainRoutes(app);
+
+app.use('*', (req, res, next) => {
+  return next(new ApiError('Route not found', STATUS_CODES.NOT_FOUND));
+});
+
 app.use(globalErrorHandler);
 
 module.exports = { app };
