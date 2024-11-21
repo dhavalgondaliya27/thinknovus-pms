@@ -1,5 +1,5 @@
 const appConfig = require('../config/appConfig');
-const ApiError = require('./../utils/apiError');
+const ApiError = require('../utils/apiError');
 
 const handleCastErrorDB = (err) => {
   const message = `Invalid ${err.path}: ${err.value}.`;
