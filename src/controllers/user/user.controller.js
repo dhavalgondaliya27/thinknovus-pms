@@ -1,5 +1,5 @@
 const userService = require('../../services/user.service');
-const userSchema = require('../../validators/user.validator');
+const userSchema = require('../../validators/user/user.validator');
 const ApiError = require('../../utils/ApiError');
 const ApiResponse = require('../../utils/ApiResponse');
 const { STATUS_CODES } = require('../../utils/constants');
