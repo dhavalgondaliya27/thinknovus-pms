@@ -1,2 +1,2 @@
-const a = 6
-console.log("rgrgr");
+const a = 6;
+console.log('rgrgr');

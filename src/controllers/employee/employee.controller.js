@@ -23,7 +23,7 @@ exports.createEmployee = asyncHandler(async (req, res, next) => {
     data.password = await userService.hashPassword(data.password);
 
     const employee = await empService.createEmployee(data);
-    if(!employee) {
+    if (!employee) {
       return next(new ApiError('Employee not found', STATUS_CODES.NOT_FOUND));
     }
 
