@@ -6,5 +6,5 @@ const router = Router();
 
 router.post('/user/create', userController.createUser);
 router.get('/user/getcurrentuser', verifyJWT, userController.getCurrentUser);
-router.get('/user/login', userController.loginUser);
+router.post('/user/login', userController.loginUser);
 module.exports = router;

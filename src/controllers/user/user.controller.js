@@ -101,14 +101,14 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
     });
     res.setHeader('Authorization', `Bearer ${accessToken}`);
     console.log(req.headers);
-    user.refreshToken = refreshToken;
+    user.refresh_token = refreshToken;
     await user.save();
     return res
       .status(STATUS_CODES.SUCCESS)
       .json(
         new ApiResponse(
           STATUS_CODES.SUCCESS,
-          { user, accessToken },
+          { user, access_token: accessToken },
           'User logged in successfully',
         ),
       );
