@@ -2,19 +2,31 @@ const mongoose = require('mongoose');
 
 const User = new mongoose.Schema(
   {
+    emp_code: {
+      type: String,
+      required: true,
+    },
     role: {
       type: String,
       enum: ['admin', 'employee', 'hr', 'manager', 'sales', 'finance'],
-      // required: true,
     },
     is_admin: {
       type: Boolean,
       required: true,
       default: false,
     },
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     firstname: {
       type: String,
       required: true,
+      trim: true,
+    },
+    middlename: {
+      type: String,
       trim: true,
     },
     lastname: {
@@ -29,18 +41,12 @@ const User = new mongoose.Schema(
       lowercase: true,
       trim: true,
     },
-    // userName: {
-    //   type: String,
-    //   required: true,
-    //   unique: true,
-    //   trim: true,
-    // },
     mobile: {
       type: String,
       required: true,
       unique: true,
     },
-    profileImage: {
+    profile_image: {
       type: String,
       default: null,
     },
@@ -48,7 +54,14 @@ const User = new mongoose.Schema(
       type: String,
       required: true,
     },
-    refreshToken: {
+    DOB: {
+      type: Date,
+    },
+    gender: {
+      type: String,
+      enum: ['Male', 'Female', 'Other'],
+    },
+    refresh_token: {
       type: String,
       default: null,
     },

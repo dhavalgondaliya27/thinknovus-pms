@@ -28,7 +28,7 @@ module.exports = [
       })(),
     },
     rules: {
-      // 'no-console': 'warn',
+      'no-console': 'warn',
       'no-unused-vars': 'error',
       'no-empty': 'error',
       'no-undef': 'error',
