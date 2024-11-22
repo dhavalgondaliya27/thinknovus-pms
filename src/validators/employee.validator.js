@@ -69,5 +69,7 @@ exports.empSchema = Joi.object({
     .optional(),
   notification_email: Joi.string().email().optional(),
   anniversary_date: Joi.date().optional(),
-  blood_group: Joi.string().valid('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-').optional(),
+  blood_group: Joi.string()
+    .valid('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-')
+    .optional(),
 });
