@@ -22,6 +22,7 @@ exports.empSchema = Joi.object({
   gender: Joi.string().valid('Male', 'Female', 'Other').optional(),
 
   // Contact Info schema
+  contact_information: Joi.array(),
   person_name: Joi.string().min(3).max(50).optional(),
   person_relation: Joi.string().min(3).max(30).optional(),
   person_phone: Joi.string()
@@ -38,6 +39,8 @@ exports.empSchema = Joi.object({
   pan_url: Joi.string().uri().optional(),
   aadhar_url: Joi.string().uri().optional(),
   passport_url: Joi.string().uri().optional(),
+  experience_letter: Joi.string().uri().optional(),
+  relieving_letter: Joi.string().uri().optional(),
 
   // Address schema
   address: Joi.string().max(255).optional(),
@@ -65,4 +68,6 @@ exports.empSchema = Joi.object({
     .pattern(/^\d{10,15}$/)
     .optional(),
   notification_email: Joi.string().email().optional(),
+  anniversary_date: Joi.date().optional(),
+  blood_group: Joi.string().valid('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-').optional(),
 });

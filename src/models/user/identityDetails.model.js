@@ -26,6 +26,12 @@ const IdentityDetail = new Schema(
     passport_url: {
       type: String,
     },
+    experience_letter: {
+      type: String,
+    },
+    relieving_letter: {
+      type: String,
+    },
   },
   {
     timestamps: true,

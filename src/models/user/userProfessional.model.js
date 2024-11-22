@@ -29,6 +29,12 @@ const UserProfessional = new Schema(
     notification_email: {
       type: String,
     },
+    anniversary_date: {
+      type: Date,
+    },
+    blood_group: {
+      type: String,
+    },
   },
   {
     timestamps: true,

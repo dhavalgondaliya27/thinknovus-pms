@@ -23,6 +23,10 @@ const UserProfessional = new Schema(
     zip: {
       type: String,
     },
+    address_type: {
+      type: String,
+      enum: ['Current', 'Permanent'],
+    },
   },
   {
     timestamps: true,
