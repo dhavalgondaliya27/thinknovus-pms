@@ -19,9 +19,9 @@ exports.createEmployee = asyncHandler(async (req, res, next) => {
     if (userExists) {
       return next(new ApiError('User already exists', STATUS_CODES.CONFLICT));
     }
-
-    data.password = await userService.hashPassword(data.password);
-
+    if (data.password) {
+      data.password = await userService.hashPassword(data.password);
+    }
     const employee = await empService.createEmployee(data);
     if (!employee) {
       return next(new ApiError('Employee not found', STATUS_CODES.NOT_FOUND));
