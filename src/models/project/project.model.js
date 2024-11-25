@@ -1,63 +1,59 @@
 const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
 
-const projectSchema = new mongoose.Schema(
+const Project = new mongoose.Schema(
   {
     client_id: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
     },
-
-    // role: {
-    //   type: String,
-    //   enum: ['admin', 'employee', 'hr', 'manager', 'sales', 'finance'],
-    //   required: true,
-    // },
-    // is_admin: {
-    //   type: Boolean,
-    //   required: true,
-    // },
-    firstname: {
+    project_name: {
       type: String,
       required: true,
-      trim: true,
     },
-    lastname: {
+    department_id: {
+      type: Schema.Types.ObjectId,
+      ref: 'Department',
+    },
+    project_by_id: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    start_date: {
+      type: Date,
+    },
+    end_date: {
+      type: Date,
+    },
+    version: {
       type: String,
-      required: true,
-      trim: true,
     },
-    email: {
+    priority: {
       type: String,
-      required: true,
-      unique: true,
-      lowercase: true,
-      trim: true,
     },
-    // userName: {
-    //   type: String,
-    //   required: true,
-    //   unique: true,
-    //   trim: true,
-    // },
-    // mobile: {
-    //   type: String,
-    //   required: true,
-    //   unique: true,
-    // },
-    // profileImage: {
-    //   type: String,
-    //   default: null,
-    // },
-    // timeone: {
-    //   type: String,
-    //   required: true,
-    // },
+    project_status: {
+      type: String,
+      enum: [
+        'cancelled',
+        'completed',
+        'hold',
+        'maintenance',
+        'pending',
+        'preliminary',
+        'progressing',
+      ],
+    },
+    project_domain: {
+      type: String,
+    },
+    database_details: {
+      type: String,
+    },
   },
   {
     timestamps: true,
   },
 );
 
-module.exports = mongoose.model('user', projectSchema);
+module.exports = mongoose.model('Project', Project);
