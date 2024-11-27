@@ -72,4 +72,24 @@ exports.empSchema = Joi.object({
   blood_group: Joi.string()
     .valid('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-')
     .optional(),
+
+  //professional summary details schema
+  project_title: Joi.string(),
+  interest: Joi.string().optional(),
+  designation: Joi.string(),
+  company_name: Joi.string(),
+  location: Joi.string().optional(),
+  start_year_of_work: Joi.date(),
+  end_year_of_work: Joi.date(),
+  description: Joi.string().optional(),
+  degree: Joi.string(),
+  institute: Joi.string(),
+  minor_year: Joi.string(),
+  major_year: Joi.string(),
+  course_name: Joi.string(),
+  course_year: Joi.string(),
+  course_duration: Joi.string(),
+  certificate_name: Joi.string().optional(),
+  certificate_year: Joi.string().optional(),
+  certificate_type: Joi.string().optional(),
 });
