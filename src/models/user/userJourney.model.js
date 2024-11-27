@@ -11,13 +11,13 @@ const UserJourney = new Schema(
     offer_letter: {
       type: String,
     },
-    pre_onboarding : {
+    pre_onboarding: {
       type: String,
     },
     joining: {
       type: String,
     },
-    document_collection : {
+    document_collection: {
       type: String,
     },
     training_period: {

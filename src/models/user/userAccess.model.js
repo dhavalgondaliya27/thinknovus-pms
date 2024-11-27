@@ -8,40 +8,40 @@ const UserAccess = new Schema(
       ref: 'User',
       required: true,
     },
-    active_auto_attendance:{
+    active_auto_attendance: {
       type: Boolean,
       default: false,
     },
-    consider_as_billable:{
-      type:Boolean,
+    consider_as_billable: {
+      type: Boolean,
       default: false,
     },
-    allow_interview:{
-      type:Boolean,
+    allow_interview: {
+      type: Boolean,
       default: false,
     },
-    allow_location_tracking:{
-      type:Boolean,
+    allow_location_tracking: {
+      type: Boolean,
       default: false,
     },
-    enable_support:{
-      type:Boolean,
+    enable_support: {
+      type: Boolean,
       default: false,
     },
-    work_mark_as_checked:{
-      type:Boolean,
+    work_mark_as_checked: {
+      type: Boolean,
       default: false,
     },
-    allow_punchin_form:{
-      type:String,
-      enum: ['Default all', 'Web', 'Mobile', 'Desktop','Punch In Device'],
-      default:'Default all',
+    allow_punchin_form: {
+      type: String,
+      enum: ['Default all', 'Web', 'Mobile', 'Desktop', 'Punch In Device'],
+      default: 'Default all',
     },
-    expertise:{
-      type:String,
+    expertise: {
+      type: String,
     },
-    duties:{
-      type:String,
+    duties: {
+      type: String,
     },
   },
   {
