@@ -22,15 +22,20 @@ exports.empSchema = Joi.object({
   gender: Joi.string().valid('Male', 'Female', 'Other').optional(),
 
   // Contact Info schema
-  contact_information: Joi.array(),
-  person_name: Joi.string().min(3).max(50).optional(),
-  person_relation: Joi.string().min(3).max(30).optional(),
-  person_phone: Joi.string()
-    .pattern(/^\d{10,15}$/)
-    .optional()
-    .messages({ 'string.pattern.base': 'Please enter a valid phone number' }),
-  person_occupation: Joi.string().min(3).max(50).optional(),
-  person_comment: Joi.string().max(255).optional(),
+  contact_information: Joi.array()
+    .items(
+      Joi.object({
+        person_name: Joi.string().min(3).max(50).required(),
+        person_relation: Joi.string().min(3).max(30).required(),
+        person_phone: Joi.string()
+          .pattern(/^\d{10,15}$/)
+          .required()
+          .messages({ 'string.pattern.base': 'Please enter a valid phone number' }),
+        person_occupation: Joi.string().min(3).max(50).required(),
+        person_comment: Joi.string().max(255).optional(),
+      }),
+    )
+    .min(1),
 
   // Identity Details schema
   pan_no: Joi.string().optional(),

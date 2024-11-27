@@ -41,15 +41,19 @@ const createUser = async (data) => {
 
 const createContactInfo = async (userId, contactInfoArray) => {
   if (Array.isArray(contactInfoArray) && contactInfoArray.length > 0) {
-    const contactInfoWithUserId = contactInfoArray.map((contact) => ({
-      user_id: userId,
-      person_name: contact.name,
-      person_relation: contact.relation,
-      person_phone: contact.mobile_number,
-      person_occupation: contact.occupation,
-      person_comment: contact.comment,
+    const operations = contactInfoArray.map((contact) => ({
+      insertOne: {
+        document: {
+          user_id: userId,
+          person_name: contact.person_name,
+          person_relation: contact.person_relation,
+          person_phone: contact.person_phone,
+          person_occupation: contact.person_occupation,
+          person_comment: contact.person_comment,
+        },
+      },
     }));
-    return await ContactInfo.insertMany(contactInfoWithUserId);
+    return await ContactInfo.bulkWrite(operations);
   }
 };
 
