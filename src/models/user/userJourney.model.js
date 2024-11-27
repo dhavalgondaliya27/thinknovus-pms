@@ -1,49 +1,44 @@
 const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
 
-const UserProfessional = new Schema(
+const UserJourney = new Schema(
   {
     user_id: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
     },
-    join_date: {
+    offer_letter: {
+      type: String,
+    },
+    pre_onboarding : {
+      type: String,
+    },
+    joining: {
+      type: String,
+    },
+    document_collection : {
+      type: String,
+    },
+    training_period: {
+      type: String,
+    },
+    probation_period: {
+      type: String,
+    },
+    resignation_letter: {
+      type: String,
+    },
+    notice_period: {
       type: Date,
     },
-    leave_date: {
-      type: Date,
-    },
-    linkedin: {
+    overtime_hourly_amount: {
       type: String,
     },
-    skype: {
+    release: {
       type: String,
     },
-    language: {
-      type: String,
-    },
-    notification_mobile: {
-      type: String,
-    },
-    notification_email: {
-      type: String,
-    },
-    anniversary_date: {
-      type: Date,
-    },
-    blood_group: {
-      type: String,
-    },
-    work_type:{
-      type: String,
-      enum:['Office', 'Home', 'Hybrid'],
-      default: 'Office',
-    },
-    reference_by:{
-      type: String,
-    },
-    github_profile_id:{
+    release_document: {
       type: String,
     },
   },
@@ -52,4 +47,4 @@ const UserProfessional = new Schema(
   },
 );
 
-module.exports = mongoose.model('UserProfessional', UserProfessional);
+module.exports = mongoose.model('UserJourney', UserJourney);
