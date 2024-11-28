@@ -63,9 +63,7 @@ exports.createOrupdateEmployeePersonalInfo = asyncHandler(
       let user;
       const userExists = await userService.findUserByEmail(data.email);
       if (userExists) {
-        return next(
-          new ApiError('User already exists', STATUS_CODES.CONFLICT),
-        );
+        return next(new ApiError('User already exists', STATUS_CODES.CONFLICT));
       }
       if (!user_id) {
         user = await empService.createUser(data);
