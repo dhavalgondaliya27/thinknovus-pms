@@ -1,6 +1,7 @@
 const Joi = require('joi');
 
 exports.userSchema = Joi.object({
+  // refresh_token: Joi.string(),
   role: Joi.string()
     .valid('admin', 'employee', 'hr', 'manager', 'sales', 'finance')
     .required(),

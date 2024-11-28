@@ -19,6 +19,7 @@ exports.empSchema = Joi.object({
   profile_image: Joi.string().uri().optional(),
   password: Joi.string().min(8).optional(),
   DOB: Joi.date().optional(),
+  refresh_token: Joi.string().optional(),
   gender: Joi.string().valid('Male', 'Female', 'Other').optional(),
 
   // Contact Info schema
@@ -50,6 +51,7 @@ exports.empSchema = Joi.object({
   zip: Joi.string()
     .pattern(/^\d{5,10}$/)
     .optional(),
+  address_type: Joi.string().min(2).max(50).optional(),
 
   // Bank Details schema
   bank_name: Joi.string().min(3).max(50).optional(),

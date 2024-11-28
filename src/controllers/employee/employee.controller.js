@@ -62,15 +62,16 @@ exports.createOrupdateEmployeePersonalInfo = asyncHandler(
       // If user id is not provided, create a new user
       let user;
       const userExists = await userService.findUserByEmail(data.email);
-      if (userExists) {
+
+      if (userExists && userExists._id.toString() !== user_id) {
         return next(new ApiError('User already exists', STATUS_CODES.CONFLICT));
       }
       if (!user_id) {
         user = await empService.createUser(data);
       }
-
-      user = await userService.findUserByID(user_id);
-
+      if (user_id) {
+        user = await userService.findUserByID(user_id);
+      }
       await Promise.all([
         empService.createOrUpdateUser(user._id, data),
         empService.createOrUpdateContactInfo(
@@ -79,14 +80,11 @@ exports.createOrupdateEmployeePersonalInfo = asyncHandler(
         ),
         empService.createOrUpdateIdentityDetails(user._id, data),
         empService.createOrUpdateBankDetails(user._id, data),
+        empService.createOrUpdateUserAddress(user._id, data),
       ]);
 
       if (data.password) {
         data.password = await userService.hashPassword(data.password);
-      }
-      const employee = await empService.createOrUpdateEmployee(data);
-      if (!employee) {
-        return next(new ApiError('Employee not found', STATUS_CODES.NOT_FOUND));
       }
 
       return res
@@ -94,7 +92,7 @@ exports.createOrupdateEmployeePersonalInfo = asyncHandler(
         .json(
           new ApiResponse(
             STATUS_CODES.SUCCESS,
-            employee,
+            user,
             'Employee created successfully',
           ),
         );

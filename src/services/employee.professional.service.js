@@ -55,8 +55,28 @@ const createUserAccessInfo = async (userId, data) => {
   );
 };
 
+const createOrUpdateProfessionalInfo = async (userId, professionalInfo) => {
+  if (!professionalInfo) return;
+  await UserProfessional.findOneAndUpdate(
+    { user_id: userId },
+    { ...professionalInfo },
+    { upsert: true, new: true, setDefaultsOnInsert: true },
+  );
+};
+
+const createOrUpdateAccessInfo = async (userId, accessInfo) => {
+  if (!accessInfo) return;
+  await UserAccess.findOneAndUpdate(
+    { user_id: userId },
+    { ...accessInfo },
+    { upsert: true, new: true, setDefaultsOnInsert: true },
+  );
+};
+
 module.exports = {
   createProfessionalDetailsOfUser,
   createProfessionalDetailsInfo,
   createUserAccessInfo,
+  createOrUpdateProfessionalInfo,
+  createOrUpdateAccessInfo,
 };
