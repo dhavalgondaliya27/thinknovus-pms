@@ -3,7 +3,7 @@ const UserProfessional = require('../models/user/userProfessional.model');
 const UserAccess = require('../models/user/userAccess.model');
 
 const createOrUpdateProfessionalDetailsInfo = async (userId, data) => {
-  await UserProfessional.findOneAndUpdate(
+ return await UserProfessional.findOneAndUpdate(
     { user_id: userId },
     {
       user_id: userId,

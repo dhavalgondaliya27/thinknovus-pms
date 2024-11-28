@@ -27,7 +27,7 @@ exports.createOrUpdateProfessionalDetails = asyncHandler(
         .json(
           new ApiResponse(
             STATUS_CODES.SUCCESS,
-            { success: true, professionalInfo },
+            professionalInfo ,
             'Employee professional details processed successfully',
           ),
         );
