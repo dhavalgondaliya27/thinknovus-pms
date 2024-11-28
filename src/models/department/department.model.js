@@ -8,7 +8,16 @@ const Department = new Schema(
     },
     department_type: {
       type: String,
-      enum: ['Admin', 'Development/Production','Finance','Marketing','Purchase','Sales','Security', 'Support'],
+      enum: [
+        'Admin',
+        'Development/Production',
+        'Finance',
+        'Marketing',
+        'Purchase',
+        'Sales',
+        'Security',
+        'Support',
+      ],
     },
     department_status: {
       type: String,

@@ -14,9 +14,12 @@ exports.createProfessionalDetails = asyncHandler(async (req, res, next) => {
       return next(new ApiError(error.message, STATUS_CODES.BAD_REQUEST));
     }
 
-    const employee = await empProfessionalService.createProfessionalDetailsOfUser(data);
+    const employee =
+      await empProfessionalService.createProfessionalDetailsOfUser(data);
     if (!employee) {
-      return next(new ApiError('Professional details not found', STATUS_CODES.NOT_FOUND));
+      return next(
+        new ApiError('Professional details not found', STATUS_CODES.NOT_FOUND),
+      );
     }
 
     return res
