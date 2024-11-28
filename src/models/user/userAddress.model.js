@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
 
-const UserProfessional = new Schema(
+const UserAddress = new Schema(
   {
     user_id: {
       type: Schema.Types.ObjectId,
@@ -33,4 +33,4 @@ const UserProfessional = new Schema(
   },
 );
 
-module.exports = mongoose.model('UserProfessional', UserProfessional);
+module.exports = mongoose.model('UserAddress', UserAddress);
