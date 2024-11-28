@@ -90,6 +90,8 @@ exports.empSchema = Joi.object({
   course_year: Joi.string().pattern(/^\d{4}$/),
   course_duration: Joi.string(),
   certificate_name: Joi.string().optional(),
-  certificate_year: Joi.string().optional().pattern(/^\d{4}$/),
+  certificate_year: Joi.string()
+    .optional()
+    .pattern(/^\d{4}$/),
   certificate_type: Joi.string().optional(),
 });
