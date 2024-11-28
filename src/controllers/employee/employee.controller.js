@@ -46,3 +46,46 @@ exports.createEmployee = asyncHandler(async (req, res, next) => {
     );
   }
 });
+
+exports.createOrupdateEmployeePersonalInfo = asyncHandler(
+  async (req, res, next) => {
+    try {
+      const data = req.body;
+      const { error } = empvalidaor.empSchema.validate(data);
+
+      if (error) {
+        return next(new ApiError(error.message, STATUS_CODES.BAD_REQUEST));
+      }
+
+      const userExists = await userService.findUserByEmail(data.email);
+      if (userExists) {
+        return next(new ApiError('User already exists', STATUS_CODES.CONFLICT));
+      }
+      if (data.password) {
+        data.password = await userService.hashPassword(data.password);
+      }
+      const employee = await empService.createOrUpdateEmployee(data);
+      if (!employee) {
+        return next(new ApiError('Employee not found', STATUS_CODES.NOT_FOUND));
+      }
+
+      return res
+        .status(STATUS_CODES.SUCCESS)
+        .json(
+          new ApiResponse(
+            STATUS_CODES.SUCCESS,
+            employee,
+            'Employee created successfully',
+          ),
+        );
+    } catch (error) {
+      console.log(error);
+      return next(
+        new ApiError(
+          error.message || 'Something went wrong',
+          STATUS_CODES.SERVER_ERROR,
+        ),
+      );
+    }
+  },
+);
