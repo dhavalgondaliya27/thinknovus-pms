@@ -118,30 +118,26 @@ const createOrUpdateEmployee = async (data) => {
   }
 };
 
-const createOrUpdateUser = async (data) => {
-  const existingUser = await User.findOne({ email: data.email });
-  if (existingUser) {
-    return await User.findByIdAndUpdate(
-      existingUser._id,
-      {
-        emp_code: data.emp_code,
-        role: data.role,
-        is_admin: data.is_admin,
-        username: data.username,
-        firstname: data.firstname,
-        middlename: data.middlename,
-        lastname: data.lastname,
-        email: data.email,
-        mobile: data.mobile,
-        profile_image: data.profile_image,
-        password: data.password,
-        DOB: data.DOB,
-        gender: data.gender,
-      },
-      { new: true },
-    );
-  }
-  return await User.create(data);
+const createOrUpdateUser = async (userId, data) => {
+  return await User.findByIdAndUpdate(
+    userId,
+    {
+      emp_code: data.emp_code,
+      role: data.role,
+      is_admin: data.is_admin,
+      username: data.username,
+      firstname: data.firstname,
+      middlename: data.middlename,
+      lastname: data.lastname,
+      email: data.email,
+      mobile: data.mobile,
+      profile_image: data.profile_image,
+      password: data.password,
+      DOB: data.DOB,
+      gender: data.gender,
+    },
+    { new: true },
+  );
 };
 
 const createOrUpdateContactInfo = async (userId, contactInfoArray) => {
@@ -240,6 +236,11 @@ module.exports = {
   createIdentityDetails,
   createBankDetails,
   createProfessionalDetails,
-
   createOrUpdateEmployee,
+  createOrUpdateUser,
+  createOrUpdateContactInfo,
+  createOrUpdateIdentityDetails,
+  createOrUpdateBankDetails,
+  createOrUpdateProfessionalDetails,
+  createOrUpdateUserAddress,
 };
