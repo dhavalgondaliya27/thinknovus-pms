@@ -3,41 +3,48 @@ const ApiResponse = require('../../utils/apiResponse');
 const asyncHandler = require('../../utils/asyncHandler');
 const { STATUS_CODES } = require('../../utils/constants');
 const empvalidaor = require('../../validators/employee.validator');
-const empProfessionalService = require('../../services/employee.professional.service');
+const empProfessionalService = require('../../services/employeeProfessional.service');
 
-exports.createProfessionalDetails = asyncHandler(async (req, res, next) => {
-  try {
-    const data = req.body;
-    const { error } = empvalidaor.empSchema.validate(data);
+exports.createOrUpdateProfessionalDetails = asyncHandler(
+  async (req, res, next) => {
+    try {
+      const data = req.body;
+      const user_id = req.params.user_id;
+      const { error } = empvalidaor.empSchema.validate(data);
 
-    if (error) {
-      return next(new ApiError(error.message, STATUS_CODES.BAD_REQUEST));
-    }
+      if (error) {
+        return next(new ApiError(error.message, STATUS_CODES.BAD_REQUEST));
+      }
 
-    const employee =
-      await empProfessionalService.createProfessionalDetailsOfUser(data);
-    if (!employee) {
+      const professionalInfo =
+        await empProfessionalService.createOrUpdateProfessionalDetailsInfo(
+          user_id,data,
+        );
+
+      await Promise.all([
+        empProfessionalService.createOrUpdateUserAccessInfo(
+          user_id,
+          data,
+        ),
+      ]);
+
+      return res
+        .status(STATUS_CODES.SUCCESS)
+        .json(
+          new ApiResponse(
+            STATUS_CODES.SUCCESS,
+            { success: true, professionalInfo },
+            'Employee professional details processed successfully',
+          ),
+        );
+    } catch (error) {
+      console.error(error);
       return next(
-        new ApiError('Professional details not found', STATUS_CODES.NOT_FOUND),
-      );
-    }
-
-    return res
-      .status(STATUS_CODES.SUCCESS)
-      .json(
-        new ApiResponse(
-          STATUS_CODES.SUCCESS,
-          employee,
-          'Employee created successfully',
+        new ApiError(
+          error.message || 'Something went wrong',
+          STATUS_CODES.SERVER_ERROR,
         ),
       );
-  } catch (error) {
-    console.log(error);
-    return next(
-      new ApiError(
-        error.message || 'Something went wrong',
-        STATUS_CODES.SERVER_ERROR,
-      ),
-    );
-  }
-});
+    }
+  },
+);
