@@ -2,20 +2,8 @@
 const UserProfessional = require('../models/user/userProfessional.model');
 const UserAccess = require('../models/user/userAccess.model');
 
-const createProfessionalDetailsOfUser = async (data) => {
-  try {
-    const professionalInfo = await createProfessionalDetailsInfo(data);
-
-    await Promise.all([createUserAccessInfo(professionalInfo._id, data)]);
-
-    return { success: true, professionalInfo };
-  } catch (error) {
-    throw new Error(`Error creating professional details: ${error.message}`);
-  }
-};
-
-const createProfessionalDetailsInfo = async (userId, data) => {
-  await UserProfessional.findOneAndUpdate(
+const createOrUpdateProfessionalDetailsInfo = async (userId, data) => {
+  return await UserProfessional.findOneAndUpdate(
     { user_id: userId },
     {
       user_id: userId,
@@ -36,7 +24,7 @@ const createProfessionalDetailsInfo = async (userId, data) => {
   );
 };
 
-const createUserAccessInfo = async (userId, data) => {
+const createOrUpdateUserAccessInfo = async (userId, data) => {
   return await UserAccess.findOneAndUpdate(
     { user_id: userId },
     {
@@ -56,7 +44,6 @@ const createUserAccessInfo = async (userId, data) => {
 };
 
 module.exports = {
-  createProfessionalDetailsOfUser,
-  createProfessionalDetailsInfo,
-  createUserAccessInfo,
+  createOrUpdateProfessionalDetailsInfo,
+  createOrUpdateUserAccessInfo,
 };
