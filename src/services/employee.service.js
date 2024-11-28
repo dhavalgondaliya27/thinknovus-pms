@@ -1,7 +1,6 @@
 const User = require('../models/user/user.model');
 const ContactInfo = require('../models/user/contactInfo.model');
 const IdentityDetail = require('../models/user/identityDetails.model');
-const UserProfessional = require('../models/user/userProfessional.model');
 const UserBankDetails = require('../models/user/userBankDetails.model');
 
 const createEmployee = async (data) => {
@@ -12,7 +11,7 @@ const createEmployee = async (data) => {
       createContactInfo(user._id, data.contact_information),
       createIdentityDetails(user._id, data),
       createBankDetails(user._id, data),
-      createProfessionalDetails(user._id, data),
+      // createProfessionalDetails(user._id, data),
     ]);
 
     return { success: true, user };
@@ -82,28 +81,10 @@ const createBankDetails = async (userId, data) => {
   }
 };
 
-const createProfessionalDetails = async (userId, data) => {
-  if (data.join_date || data.leave_date || data.linkedin) {
-    return await UserProfessional.create({
-      user_id: userId,
-      join_date: data.join_date,
-      leave_date: data.leave_date,
-      linkedin: data.linkedin,
-      skype: data.skype,
-      language: data.language,
-      notification_mobile: data.notification_mobile,
-      notification_email: data.notification_email,
-      anniversary_date: data.anniversary_date,
-      blood_group: data.blood_group,
-    });
-  }
-};
-
 module.exports = {
   createEmployee,
   createUser,
   createContactInfo,
   createIdentityDetails,
   createBankDetails,
-  createProfessionalDetails,
 };

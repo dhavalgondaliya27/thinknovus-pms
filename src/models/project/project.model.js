@@ -20,10 +20,10 @@ const Project = new mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: 'User',
     },
-    start_date: {
+    project_start_date: {
       type: Date,
     },
-    end_date: {
+    project_end_date: {
       type: Date,
     },
     version: {
@@ -31,6 +31,7 @@ const Project = new mongoose.Schema(
     },
     priority: {
       type: String,
+      enum:['High','Medium','Low','Critical'],
     },
     project_status: {
       type: String,

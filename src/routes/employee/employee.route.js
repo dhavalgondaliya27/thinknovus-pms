@@ -1,8 +1,10 @@
 const { Router } = require('express');
 const empController = require('../../controllers/employee/employee.controller');
+const employeeProfessionalRouter = require('../../routes/employee/employeeProfessional.route');
+const empRouter = Router();
 
-const router = Router();
+empRouter.use(employeeProfessionalRouter);
 
-router.post('/emp/create-emp', empController.createEmployee);
+empRouter.post('/emp/create-emp', empController.createEmployee);
 
-module.exports = router;
+module.exports = empRouter;

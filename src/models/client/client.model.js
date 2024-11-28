@@ -13,10 +13,10 @@ const Client = new mongoose.Schema(
     client_name: {
       type: String,
     },
-    phone: {
+    client_phone: {
       type: String,
     },
-    email: {
+    client_email: {
       type: String,
     },
     address: {
