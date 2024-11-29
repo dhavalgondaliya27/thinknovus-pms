@@ -67,8 +67,7 @@ exports.createOrupdateEmployeePersonalInfo = asyncHandler(
       }
       if (!user_id) {
         user = await empService.createUser(data);
-      }
-      else{
+      } else {
         user = await userService.findUserByID(user_id);
       }
       await Promise.all([

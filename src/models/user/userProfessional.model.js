@@ -10,7 +10,14 @@ const UserProfessional = new Schema(
     },
     employee_type: {
       type: String,
-      enum: ['Permanent', 'Contract', 'Freelancer','Dedicated', 'Trainee', 'Probation'],
+      enum: [
+        'Permanent',
+        'Contract',
+        'Freelancer',
+        'Dedicated',
+        'Trainee',
+        'Probation',
+      ],
     },
     join_date: {
       type: Date,
@@ -18,10 +25,10 @@ const UserProfessional = new Schema(
     leave_date: {
       type: Date,
     },
-    computer_name:{
+    computer_name: {
       type: String,
     },
-    computer_password:{
+    computer_password: {
       type: String,
     },
     linkedin: {
