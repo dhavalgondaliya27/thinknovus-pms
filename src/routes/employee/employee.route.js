@@ -7,7 +7,7 @@ const { verifyJWT } = require('../../middleware/auth.middleware');
 empRouter.use(employeeProfessionalRouter);
 
 empRouter.post('/emp/create-emp', verifyJWT, empController.createEmployee);
-empRouter.post(
+empRouter.put(
   '/emp/create-or-update-personal-info',
   verifyJWT,
   empController.createOrupdateEmployeePersonalInfo,

@@ -4,6 +4,7 @@ const IdentityDetail = require('../models/user/identityDetails.model');
 const UserBankDetails = require('../models/user/userBankDetails.model');
 const UserAddress = require('../models/user/userAddress.model');
 const UserProfessional = require('../models/user/userProfessional.model');
+const userService = require('../services/user.service');
 
 const createUser = async (data) => {
   return await User.create({
@@ -24,6 +25,10 @@ const createUser = async (data) => {
 };
 
 const createOrUpdateUser = async (userId, data) => {
+  if (data.password) {
+    data.password = await userService.hashPassword(data.password);
+  }
+
   return await User.findByIdAndUpdate(
     userId,
     {
@@ -31,6 +36,7 @@ const createOrUpdateUser = async (userId, data) => {
       role: data.role,
       is_admin: data.is_admin,
       username: data.username,
+      password: data.password,
       firstname: data.firstname,
       middlename: data.middlename,
       lastname: data.lastname,
@@ -47,19 +53,16 @@ const createOrUpdateUser = async (userId, data) => {
 
 const createOrUpdateContactInfo = async (userId, contactInfoArray) => {
   if (Array.isArray(contactInfoArray) && contactInfoArray.length > 0) {
+    await ContactInfo.deleteMany({ user_id: userId });
     for (const contact of contactInfoArray) {
-      await ContactInfo.findOneAndUpdate(
-        { user_id: userId, person_name: contact.name },
-        {
-          user_id: userId,
-          person_name: contact.name,
-          person_relation: contact.relation,
-          person_phone: contact.mobile_number,
-          person_occupation: contact.occupation,
-          person_comment: contact.comment,
-        },
-        { upsert: true, new: true },
-      );
+      await ContactInfo.create({
+        user_id: userId,
+        person_name: contact.person_name,
+        person_relation: contact.person_relation,
+        person_phone: contact.person_phone,
+        person_occupation: contact.person_occupation,
+        person_comment: contact.person_comment,
+      });
     }
   }
 };
