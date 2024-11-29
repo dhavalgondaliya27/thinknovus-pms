@@ -43,7 +43,17 @@ const createOrUpdateUserAccessInfo = async (userId, data) => {
   );
 };
 
+const getProfessionalInfo = async (userId) => {
+  return UserProfessional.findOne({ user_id: userId });
+};
+
+const getAccessInfo = async (userId) => {
+  return UserAccess.findOne({ user_id: userId });
+};
+
 module.exports = {
   createOrUpdateProfessionalDetailsInfo,
   createOrUpdateUserAccessInfo,
+  getProfessionalInfo,
+  getAccessInfo,
 };
