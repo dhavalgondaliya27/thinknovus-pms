@@ -22,6 +22,7 @@ const UserPromotions = new Schema(
     },
     salary_duration: {
       type: String,
+      enum:['monthly','hourly'],
     },
     salary: {
       type: String,
@@ -30,7 +31,7 @@ const UserPromotions = new Schema(
       type: String,
     },
     employee_salary_setting: {
-      type: Date,
+      type: String,
     },
     overtime_hourly_amount: {
       type: String,
