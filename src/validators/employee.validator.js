@@ -19,6 +19,7 @@ exports.empSchema = Joi.object({
   profile_image: Joi.string().uri().optional(),
   password: Joi.string().min(8).optional(),
   DOB: Joi.date().optional(),
+  refresh_token: Joi.string().optional(),
   gender: Joi.string().valid('Male', 'Female', 'Other').optional(),
 
   // Contact Info schema
@@ -55,6 +56,7 @@ exports.empSchema = Joi.object({
   zip: Joi.string()
     .pattern(/^\d{5,10}$/)
     .optional(),
+  address_type: Joi.string().min(2).max(50).optional(),
 
   // Bank Details schema
   bank_name: Joi.string().min(3).max(50).optional(),
@@ -77,4 +79,38 @@ exports.empSchema = Joi.object({
   blood_group: Joi.string()
     .valid('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-')
     .optional(),
+  work_type: Joi.string().optional(),
+  reference_by: Joi.string().optional(),
+  github_profile_id: Joi.string().optional(),
+  active_auto_attendance: Joi.boolean().optional(),
+  consider_as_billable: Joi.boolean().optional(),
+  allow_interview: Joi.boolean().optional(),
+  allow_location_tracking: Joi.boolean().optional(),
+  enable_support: Joi.boolean().optional(),
+  work_mark_as_checked: Joi.boolean().optional(),
+  allow_punchin_form: Joi.string().optional(),
+  expertise: Joi.string().optional(),
+  duties: Joi.string().optional(),
+
+  //professional summary details schema
+  project_title: Joi.string(),
+  interest: Joi.string().optional(),
+  designation: Joi.string(),
+  company_name: Joi.string(),
+  location: Joi.string().optional(),
+  start_year_of_work: Joi.string().pattern(/^\d{4}$/),
+  end_year_of_work: Joi.string().pattern(/^\d{4}$/),
+  description: Joi.string().optional(),
+  degree: Joi.string(),
+  institute: Joi.string(),
+  minor_year: Joi.string().pattern(/^\d{4}$/),
+  major_year: Joi.string().pattern(/^\d{4}$/),
+  course_name: Joi.string(),
+  course_year: Joi.string().pattern(/^\d{4}$/),
+  course_duration: Joi.string(),
+  certificate_name: Joi.string().optional(),
+  certificate_year: Joi.string()
+    .optional()
+    .pattern(/^\d{4}$/),
+  certificate_type: Joi.string().optional(),
 });

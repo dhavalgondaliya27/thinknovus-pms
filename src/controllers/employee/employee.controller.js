@@ -46,3 +46,64 @@ exports.createEmployee = asyncHandler(async (req, res, next) => {
     );
   }
 });
+
+exports.createOrupdateEmployeePersonalInfo = asyncHandler(
+  async (req, res, next) => {
+    try {
+      const data = req.body;
+      const user_id = req.query.user_id;
+      console.log('user_id', user_id);
+
+      const { error } = empvalidaor.empSchema.validate(data);
+
+      if (error) {
+        return next(new ApiError(error.message, STATUS_CODES.BAD_REQUEST));
+      }
+      // If user id is not provided, create a new user
+      let user;
+      const userExists = await userService.findUserByEmail(data.email);
+
+      if (userExists && userExists._id.toString() !== user_id) {
+        return next(new ApiError('User already exists', STATUS_CODES.CONFLICT));
+      }
+      if (!user_id) {
+        user = await empService.createUser(data);
+      }
+      if (user_id) {
+        user = await userService.findUserByID(user_id);
+      }
+      await Promise.all([
+        empService.createOrUpdateUser(user._id, data),
+        empService.createOrUpdateContactInfo(
+          user._id,
+          data.contact_information,
+        ),
+        empService.createOrUpdateIdentityDetails(user._id, data),
+        empService.createOrUpdateBankDetails(user._id, data),
+        empService.createOrUpdateUserAddress(user._id, data),
+      ]);
+
+      if (data.password) {
+        data.password = await userService.hashPassword(data.password);
+      }
+
+      return res
+        .status(STATUS_CODES.SUCCESS)
+        .json(
+          new ApiResponse(
+            STATUS_CODES.SUCCESS,
+            user,
+            'Employee created successfully',
+          ),
+        );
+    } catch (error) {
+      console.log(error);
+      return next(
+        new ApiError(
+          error.message || 'Something went wrong',
+          STATUS_CODES.SERVER_ERROR,
+        ),
+      );
+    }
+  },
+);

@@ -1,25 +1,9 @@
 const User = require('../models/user/user.model');
 const ContactInfo = require('../models/user/contactInfo.model');
 const IdentityDetail = require('../models/user/identityDetails.model');
-const UserProfessional = require('../models/user/userProfessional.model');
 const UserBankDetails = require('../models/user/userBankDetails.model');
-
-const createEmployee = async (data) => {
-  try {
-    const user = await createUser(data);
-
-    await Promise.all([
-      createContactInfo(user._id, data.contact_information),
-      createIdentityDetails(user._id, data),
-      createBankDetails(user._id, data),
-      createProfessionalDetails(user._id, data),
-    ]);
-
-    return { success: true, user };
-  } catch (error) {
-    throw new Error(`Error creating employee: ${error.message}`);
-  }
-};
+const UserAddress = require('../models/user/userAddress.model');
+const UserProfessional = require('../models/user/userProfessional.model');
 
 const createUser = async (data) => {
   return await User.create({
@@ -39,27 +23,51 @@ const createUser = async (data) => {
   });
 };
 
-const createContactInfo = async (userId, contactInfoArray) => {
+const createOrUpdateUser = async (userId, data) => {
+  return await User.findByIdAndUpdate(
+    userId,
+    {
+      emp_code: data.emp_code,
+      role: data.role,
+      is_admin: data.is_admin,
+      username: data.username,
+      firstname: data.firstname,
+      middlename: data.middlename,
+      lastname: data.lastname,
+      email: data.email,
+      mobile: data.mobile,
+      profile_image: data.profile_image,
+      password: data.password,
+      DOB: data.DOB,
+      gender: data.gender,
+    },
+    { new: true },
+  );
+};
+
+const createOrUpdateContactInfo = async (userId, contactInfoArray) => {
   if (Array.isArray(contactInfoArray) && contactInfoArray.length > 0) {
-    const operations = contactInfoArray.map((contact) => ({
-      insertOne: {
-        document: {
+    for (const contact of contactInfoArray) {
+      await ContactInfo.findOneAndUpdate(
+        { user_id: userId, person_name: contact.name },
+        {
           user_id: userId,
-          person_name: contact.person_name,
-          person_relation: contact.person_relation,
-          person_phone: contact.person_phone,
-          person_occupation: contact.person_occupation,
-          person_comment: contact.person_comment,
+          person_name: contact.name,
+          person_relation: contact.relation,
+          person_phone: contact.mobile_number,
+          person_occupation: contact.occupation,
+          person_comment: contact.comment,
         },
-      },
-    }));
-    return await ContactInfo.bulkWrite(operations);
+        { upsert: true, new: true },
+      );
+    }
   }
 };
 
-const createIdentityDetails = async (userId, data) => {
-  if (data.pan_no || data.aadhar_no || data.passport_no) {
-    return await IdentityDetail.create({
+const createOrUpdateIdentityDetails = async (userId, data) => {
+  await IdentityDetail.findOneAndUpdate(
+    { user_id: userId },
+    {
       user_id: userId,
       pan_no: data.pan_no,
       aadhar_no: data.aadhar_no,
@@ -69,26 +77,32 @@ const createIdentityDetails = async (userId, data) => {
       passport_url: data.passport_url,
       experience_letter: data.experience_letter,
       relieving_letter: data.relieving_letter,
-    });
-  }
+    },
+    { upsert: true, new: true },
+  );
 };
 
-const createBankDetails = async (userId, data) => {
+const createOrUpdateBankDetails = async (userId, data) => {
   if (data.bank_name || data.account_number || data.IFSC) {
-    return await UserBankDetails.create({
-      user_id: userId,
-      bank_name: data.bank_name,
-      account_number: data.account_number,
-      IFSC: data.IFSC,
-      account_name: data.account_name,
-      swift_code: data.swift_code,
-    });
+    await UserBankDetails.findOneAndUpdate(
+      { user_id: userId },
+      {
+        user_id: userId,
+        bank_name: data.bank_name,
+        account_number: data.account_number,
+        IFSC: data.IFSC,
+        account_name: data.account_name,
+        swift_code: data.swift_code,
+      },
+      { upsert: true, new: true },
+    );
   }
 };
 
-const createProfessionalDetails = async (userId, data) => {
-  if (data.join_date || data.leave_date || data.linkedin) {
-    return await UserProfessional.create({
+const createOrUpdateProfessionalDetails = async (userId, data) => {
+  await UserProfessional.findOneAndUpdate(
+    { user_id: userId },
+    {
       user_id: userId,
       join_date: data.join_date,
       leave_date: data.leave_date,
@@ -99,15 +113,33 @@ const createProfessionalDetails = async (userId, data) => {
       notification_email: data.notification_email,
       anniversary_date: data.anniversary_date,
       blood_group: data.blood_group,
-    });
-  }
+    },
+    { upsert: true, new: true },
+  );
+};
+
+const createOrUpdateUserAddress = async (userId, data) => {
+  await UserAddress.findOneAndUpdate(
+    { user_id: userId },
+    {
+      user_id: userId,
+      address: data.address,
+      country: data.country,
+      state: data.state,
+      city: data.city,
+      zip: data.zip,
+      address_type: data.address_type,
+    },
+    { upsert: true, new: true },
+  );
 };
 
 module.exports = {
-  createEmployee,
   createUser,
-  createContactInfo,
-  createIdentityDetails,
-  createBankDetails,
-  createProfessionalDetails,
+  createOrUpdateUser,
+  createOrUpdateContactInfo,
+  createOrUpdateIdentityDetails,
+  createOrUpdateBankDetails,
+  createOrUpdateProfessionalDetails,
+  createOrUpdateUserAddress,
 };

@@ -1,47 +1,44 @@
 const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
 
-const Client = new mongoose.Schema(
+const UserJourney = new Schema(
   {
-    project_id: {
-      type: Schema.Types.ObjectId,
-      ref: 'Project',
-    },
-    company_name: {
-      type: String,
-    },
-    client_name: {
-      type: String,
-    },
-    client_phone: {
-      type: String,
-    },
-    client_email: {
-      type: String,
-    },
-    address: {
-      type: String,
-    },
-    country: {
-      type: String,
-    },
-    state: {
-      type: String,
-    },
-    city: {
-      type: String,
-    },
-    zipcode: {
-      type: String,
-    },
-    currency: {
-      type: String,
-    },
-    employee_id: {
+    user_id: {
       type: Schema.Types.ObjectId,
       ref: 'User',
+      required: true,
     },
-    source: {
+    offer_letter: {
+      type: String,
+    },
+    pre_onboarding: {
+      type: String,
+    },
+    joining: {
+      type: String,
+    },
+    document_collection: {
+      type: String,
+    },
+    training_period: {
+      type: String,
+    },
+    probation_period: {
+      type: String,
+    },
+    resignation_letter: {
+      type: String,
+    },
+    notice_period: {
+      type: Date,
+    },
+    overtime_hourly_amount: {
+      type: String,
+    },
+    release: {
+      type: String,
+    },
+    release_document: {
       type: String,
     },
   },
@@ -50,4 +47,4 @@ const Client = new mongoose.Schema(
   },
 );
 
-module.exports = mongoose.model('Client', Client);
+module.exports = mongoose.model('UserJourney', UserJourney);

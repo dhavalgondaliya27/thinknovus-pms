@@ -3,25 +3,25 @@ const { Schema } = require('mongoose');
 
 const Department = new Schema(
   {
-    user_id: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
-    },
-    name: {
+    department_name: {
       type: String,
     },
-    relation: {
+    department_type: {
       type: String,
+      enum: [
+        'Admin',
+        'Development/Production',
+        'Finance',
+        'Marketing',
+        'Purchase',
+        'Sales',
+        'Security',
+        'Support',
+      ],
     },
-    phone: {
+    department_status: {
       type: String,
-    },
-    occupation: {
-      type: String,
-    },
-    comment: {
-      type: String,
+      enum: ['active', 'inactive'],
     },
   },
   {

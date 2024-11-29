@@ -35,6 +35,17 @@ const UserProfessional = new Schema(
     blood_group: {
       type: String,
     },
+    work_type: {
+      type: String,
+      enum: ['Office', 'Home', 'Hybrid'],
+      default: 'Office',
+    },
+    reference_by: {
+      type: String,
+    },
+    github_profile_id: {
+      type: String,
+    },
   },
   {
     timestamps: true,
