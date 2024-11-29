@@ -59,7 +59,6 @@ exports.createOrupdateEmployeePersonalInfo = asyncHandler(
       if (error) {
         return next(new ApiError(error.message, STATUS_CODES.BAD_REQUEST));
       }
-      // If user id is not provided, create a new user
       let user;
       const userExists = await userService.findUserByEmail(data.email);
 
@@ -68,8 +67,7 @@ exports.createOrupdateEmployeePersonalInfo = asyncHandler(
       }
       if (!user_id) {
         user = await empService.createUser(data);
-      }
-      if (user_id) {
+      } else {
         user = await userService.findUserByID(user_id);
       }
       await Promise.all([
@@ -82,10 +80,6 @@ exports.createOrupdateEmployeePersonalInfo = asyncHandler(
         empService.createOrUpdateBankDetails(user._id, data),
         empService.createOrUpdateUserAddress(user._id, data),
       ]);
-
-      if (data.password) {
-        data.password = await userService.hashPassword(data.password);
-      }
 
       return res
         .status(STATUS_CODES.SUCCESS)
@@ -107,3 +101,4 @@ exports.createOrupdateEmployeePersonalInfo = asyncHandler(
     }
   },
 );
+

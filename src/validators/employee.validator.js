@@ -19,19 +19,25 @@ exports.empSchema = Joi.object({
   profile_image: Joi.string().uri().optional(),
   password: Joi.string().min(8).optional(),
   DOB: Joi.date().optional(),
-  refresh_token: Joi.string().optional(),
   gender: Joi.string().valid('Male', 'Female', 'Other').optional(),
 
   // Contact Info schema
-  contact_information: Joi.array(),
-  person_name: Joi.string().min(3).max(50).optional(),
-  person_relation: Joi.string().min(3).max(30).optional(),
-  person_phone: Joi.string()
-    .pattern(/^\d{10,15}$/)
-    .optional()
-    .messages({ 'string.pattern.base': 'Please enter a valid phone number' }),
-  person_occupation: Joi.string().min(3).max(50).optional(),
-  person_comment: Joi.string().max(255).optional(),
+  contact_information: Joi.array()
+    .items(
+      Joi.object({
+        person_name: Joi.string().min(3).max(50).required(),
+        person_relation: Joi.string().min(3).max(30).required(),
+        person_phone: Joi.string()
+          .pattern(/^\d{10,15}$/)
+          .required()
+          .messages({
+            'string.pattern.base': 'Please enter a valid phone number',
+          }),
+        person_occupation: Joi.string().min(3).max(50).required(),
+        person_comment: Joi.string().max(255).optional(),
+      }),
+    )
+    .min(1),
 
   // Identity Details schema
   pan_no: Joi.string().optional(),
@@ -61,8 +67,20 @@ exports.empSchema = Joi.object({
   swift_code: Joi.string().optional(),
 
   // Professional Details schema
+  employee_type: Joi.string()
+    .valid(
+      'Permanent',
+      'Contract',
+      'Freelancer',
+      'Dedicated',
+      'Trainee',
+      'Probation',
+    )
+    .optional(),
   join_date: Joi.date().optional(),
   leave_date: Joi.date().optional(),
+  computer_name: Joi.string().optional(),
+  computer_password: Joi.string().optional(),
   linkedin: Joi.string().uri().optional(),
   skype: Joi.string().optional(),
   language: Joi.string().optional(),
@@ -86,6 +104,19 @@ exports.empSchema = Joi.object({
   allow_punchin_form: Joi.string().optional(),
   expertise: Joi.string().optional(),
   duties: Joi.string().optional(),
+
+  //promotions schema
+  designation: Joi.string().optional(),
+  paid_leave: Joi.number().optional(),
+  start_date_of_promotion: Joi.date().optional(),
+  end_date_of_promotion: Joi.date().greater(Joi.ref('start_date_of_promotion')).optional(),
+  salary_duration: Joi.string().valid('monthly','hourly').optional(),
+  salary: Joi.string().optional(),
+  overtime_salary_type: Joi.string().optional(),
+  employee_salary_setting: Joi.string().optional(),
+  overtime_hourly_amount: Joi.string().optional(),
+  currency: Joi.string().optional(),
+  promotion_letter_doc: Joi.string().optional(),
 
   //professional summary details schema
   project_title: Joi.string(),

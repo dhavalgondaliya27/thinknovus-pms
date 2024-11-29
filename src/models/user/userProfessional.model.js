@@ -8,11 +8,28 @@ const UserProfessional = new Schema(
       ref: 'User',
       required: true,
     },
+    employee_type: {
+      type: String,
+      enum: [
+        'Permanent',
+        'Contract',
+        'Freelancer',
+        'Dedicated',
+        'Trainee',
+        'Probation',
+      ],
+    },
     join_date: {
       type: Date,
     },
     leave_date: {
       type: Date,
+    },
+    computer_name: {
+      type: String,
+    },
+    computer_password: {
+      type: String,
     },
     linkedin: {
       type: String,

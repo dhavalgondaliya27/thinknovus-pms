@@ -86,8 +86,8 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
       return next(new ApiError('User not found', STATUS_CODES.NOT_FOUND));
     }
     const isPasswordMatch = await userService.comparePassword(
-      data.password,
-      user.password,
+      data?.password,
+      user?.password,
     );
     if (!isPasswordMatch) {
       return next(new ApiError('Invalid password', STATUS_CODES.BAD_REQUEST));
@@ -100,7 +100,6 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
       maxAge: 100 * 365 * 24 * 60 * 60 * 1000,
     });
     res.setHeader('Authorization', `Bearer ${accessToken}`);
-    console.log(req.headers);
     user.refresh_token = refreshToken;
     await user.save();
     return res
@@ -108,7 +107,7 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
       .json(
         new ApiResponse(
           STATUS_CODES.SUCCESS,
-          { user, access_token: accessToken },
+          user.safe,
           'User logged in successfully',
         ),
       );

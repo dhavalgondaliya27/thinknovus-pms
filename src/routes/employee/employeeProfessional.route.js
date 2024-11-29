@@ -8,5 +8,10 @@ router.post(
   verifyJWT,
   employeeProfessionalController.createOrUpdateProfessionalDetails,
 );
+router.get(
+  '/emp/get-emp-professionalDetails/:user_id',
+  verifyJWT,
+  employeeProfessionalController.getEmployeeProfessionalInfo,
+);
 
 module.exports = router;
