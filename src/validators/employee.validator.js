@@ -19,19 +19,25 @@ exports.empSchema = Joi.object({
   profile_image: Joi.string().uri().optional(),
   password: Joi.string().min(8).optional(),
   DOB: Joi.date().optional(),
-  refresh_token: Joi.string().optional(),
   gender: Joi.string().valid('Male', 'Female', 'Other').optional(),
 
   // Contact Info schema
-  contact_information: Joi.array(),
-  person_name: Joi.string().min(3).max(50).optional(),
-  person_relation: Joi.string().min(3).max(30).optional(),
-  person_phone: Joi.string()
-    .pattern(/^\d{10,15}$/)
-    .optional()
-    .messages({ 'string.pattern.base': 'Please enter a valid phone number' }),
-  person_occupation: Joi.string().min(3).max(50).optional(),
-  person_comment: Joi.string().max(255).optional(),
+  contact_information: Joi.array()
+    .items(
+      Joi.object({
+        person_name: Joi.string().min(3).max(50).required(),
+        person_relation: Joi.string().min(3).max(30).required(),
+        person_phone: Joi.string()
+          .pattern(/^\d{10,15}$/)
+          .required()
+          .messages({
+            'string.pattern.base': 'Please enter a valid phone number',
+          }),
+        person_occupation: Joi.string().min(3).max(50).required(),
+        person_comment: Joi.string().max(255).optional(),
+      }),
+    )
+    .min(1),
 
   // Identity Details schema
   pan_no: Joi.string().optional(),
@@ -61,8 +67,20 @@ exports.empSchema = Joi.object({
   swift_code: Joi.string().optional(),
 
   // Professional Details schema
+  employee_type: Joi.string()
+    .valid(
+      'Permanent',
+      'Contract',
+      'Freelancer',
+      'Dedicated',
+      'Trainee',
+      'Probation',
+    )
+    .optional(),
   join_date: Joi.date().optional(),
   leave_date: Joi.date().optional(),
+  computer_name: Joi.string().optional(),
+  computer_password: Joi.string().optional(),
   linkedin: Joi.string().uri().optional(),
   skype: Joi.string().optional(),
   language: Joi.string().optional(),

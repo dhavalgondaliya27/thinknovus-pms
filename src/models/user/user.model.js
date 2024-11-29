@@ -68,7 +68,27 @@ const User = new mongoose.Schema(
   },
   {
     timestamps: true,
+    toJSON: {
+      transform: function (doc, ret) {
+        delete ret.__v;
+      },
+    },
+    toObject: {
+      transform: function (doc, ret) {
+        delete ret.__v;
+      },
+    },
   },
 );
+
+User.virtual('safe').get(function () {
+  const user = this.toObject();
+  delete user.password;
+  delete user.refresh_token;
+  return user;
+});
+User.set('toJSON', {
+  virtuals: true,
+});
 
 module.exports = mongoose.model('User', User);
