@@ -87,6 +87,19 @@ exports.empSchema = Joi.object({
   expertise: Joi.string().optional(),
   duties: Joi.string().optional(),
 
+  //promotions schema
+  designation: Joi.string().optional(),
+  paid_leave: Joi.number().optional(),
+  start_date_of_promotion: Joi.date().optional(),
+  end_date_of_promotion: Joi.date().greater(Joi.ref('start_date_of_promotion')).optional(),
+  salary_duration: Joi.string().valid('monthly','hourly').optional(),
+  salary: Joi.string().optional(),
+  overtime_salary_type: Joi.string().optional(),
+  employee_salary_setting: Joi.string().optional(),
+  overtime_hourly_amount: Joi.string().optional(),
+  currency: Joi.string().optional(),
+  promotion_letter_doc: Joi.string().optional(),
+
   //professional summary details schema
   project_title: Joi.string(),
   interest: Joi.string().optional(),
