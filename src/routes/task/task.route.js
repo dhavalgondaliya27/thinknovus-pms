@@ -6,6 +6,10 @@ const subTaskRouter = require('./subtask.route');
 const taskRoutes = Router();
 taskRoutes.use(subTaskRouter);
 
-taskRoutes.post('/task/createOrUpdateTaskDetails',verifyJWT, taskController.createOrUpdateTaskDetails);
+taskRoutes.post(
+  '/task/createOrUpdateTaskDetails',
+  verifyJWT,
+  taskController.createOrUpdateTaskDetails,
+);
 
 module.exports = taskRoutes;

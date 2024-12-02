@@ -4,6 +4,10 @@ const { verifyJWT } = require('../../middleware/auth.middleware');
 
 const projectRoutes = Router();
 
-projectRoutes.post('/project/createOrUpdateProjectDetails', verifyJWT,projectController.createOrUpdateProjectDetails);
+projectRoutes.post(
+  '/project/createOrUpdateProjectDetails',
+  verifyJWT,
+  projectController.createOrUpdateProjectDetails,
+);
 
 module.exports = projectRoutes;

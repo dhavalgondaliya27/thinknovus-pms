@@ -109,8 +109,10 @@ exports.empSchema = Joi.object({
   designation: Joi.string().optional(),
   paid_leave: Joi.number().optional(),
   start_date_of_promotion: Joi.date().optional(),
-  end_date_of_promotion: Joi.date().greater(Joi.ref('start_date_of_promotion')).optional(),
-  salary_duration: Joi.string().valid('monthly','hourly').optional(),
+  end_date_of_promotion: Joi.date()
+    .greater(Joi.ref('start_date_of_promotion'))
+    .optional(),
+  salary_duration: Joi.string().valid('monthly', 'hourly').optional(),
   salary: Joi.string().optional(),
   overtime_salary_type: Joi.string().optional(),
   employee_salary_setting: Joi.string().optional(),

@@ -4,6 +4,10 @@ const { verifyJWT } = require('../../middleware/auth.middleware');
 
 const clientRoutes = Router();
 
-clientRoutes.post('/client/createOrUpdateClientDetails', verifyJWT,clientController.createOrUpdateClientDetails);
+clientRoutes.post(
+  '/client/createOrUpdateClientDetails',
+  verifyJWT,
+  clientController.createOrUpdateClientDetails,
+);
 
 module.exports = clientRoutes;
