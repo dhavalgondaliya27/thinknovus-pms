@@ -12,7 +12,7 @@ const findPunchById = async (punch_id) => {
   return await emptiming.findById(punch_id);
 };
 
-const findPunchByUserId = async (user_id) =>{
+const findPunchByUserId = async (user_id) => {
   return await emptiming.findOne({ user_id }).sort({ createdAt: -1 });
 };
 

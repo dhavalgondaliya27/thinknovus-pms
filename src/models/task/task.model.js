@@ -69,7 +69,7 @@ const Task = new mongoose.Schema(
         remark: {
           type: String,
         },
-        task_photo:{
+        task_photo: {
           type: String,
         },
       },
