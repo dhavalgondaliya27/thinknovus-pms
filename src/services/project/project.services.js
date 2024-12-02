@@ -2,17 +2,13 @@ const Project = require('../../models/project/project.model');
 const projecteTeam = require('../../models/project/projecteTeam.model');
 
 const createOrUpdateProjectDetails = async (projectId, data) => {
+  if (!projectId) {
+    const newProject = new Project(data);
+    return await newProject.save();
+  }
   return await Project.findOneAndUpdate(
     { _id: projectId },
-    {
-      name: data.name,
-      description: data.description,
-      start_date: data.start_date,
-      end_date: data.end_date,
-      client_id: data.client_id,
-      status: data.status,
-      budget: data.budget,
-    },
+    { $set: { ...data } }, // Use $set to avoid overwriting the entire document
     { upsert: true, new: true },
   );
 };

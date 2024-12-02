@@ -16,7 +16,7 @@ const Project = new mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: 'Department',
     },
-    project_by_id: {
+    project_created_by_id: {
       type: Schema.Types.ObjectId,
       ref: 'User',
     },

@@ -1,19 +1,21 @@
 const Task = require('../../models/task/task.model');
 
 const createOrUpdateTaskDetails = async (taskId, data) => {
-  return await Task.findOneAndUpdate(
-    { _id: taskId },
-    {
-      name: data.name,
-      description: data.description,
-      start_date: data.start_date,
-      due_date: data.due_date,
-      priority: data.priority,
-      status: data.status,
-      project_id: data.project_id,
-    },
-    { upsert: true, new: true },
-  );
+  try {
+    if (!taskId) {
+      const newTask = new Task(data);
+      return await newTask.save();
+    }
+    const task = await Task.findOneAndUpdate(
+      { _id: taskId },
+      { ...data },
+      { upsert: true, new: true },
+    );
+    return task;
+  } catch (error) {
+    console.error('Error in createOrUpdateTaskDetails:', error);
+    throw new Error('Failed to create or update task details');
+  }
 };
 
 module.exports = {

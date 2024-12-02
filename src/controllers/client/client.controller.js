@@ -7,7 +7,7 @@ const clientService = require('../../services/client/client.service');
 exports.createOrUpdateClientDetails = asyncHandler(async (req, res, next) => {
   try {
     const data = req.body;
-    const clientId = req.params.client_id;
+    const clientId = req.query.client_id;
 
     //   const { error } = clientValidator.validate(data);
     //   if (error) {

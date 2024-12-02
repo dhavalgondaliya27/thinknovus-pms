@@ -1,18 +1,21 @@
-const subTask = require('../../models/task/subTask.model');
+const SubTask = require('../../models/task/subTask.model');
 
 const createOrUpdateSubTaskDetails = async (subTaskId, data) => {
-  return await subTask.findOneAndUpdate(
-    { _id: subTaskId },
-    {
-      name: data.name,
-      description: data.description,
-      due_date: data.due_date,
-      priority: data.priority,
-      status: data.status,
-      task_id: data.task_id,
-    },
-    { upsert: true, new: true },
-  );
+  try {
+    if (!subTaskId) {
+      const newSubTask = new SubTask(data);
+      return await newSubTask.save();
+    }
+    const updatedSubTask = await SubTask.findOneAndUpdate(
+      { _id: subTaskId },
+      { ...data },
+      { upsert: true, new: true },
+    );
+    return updatedSubTask;
+  } catch (error) {
+    console.error('Error updating or creating sub-task:', error);
+    throw new Error('Failed to process sub-task details');
+  }
 };
 
 module.exports = {

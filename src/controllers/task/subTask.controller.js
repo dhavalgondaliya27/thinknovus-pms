@@ -7,7 +7,7 @@ const subTaskService = require('../../services/task/subTask.services');
 exports.createOrUpdateSubTaskDetails = asyncHandler(async (req, res, next) => {
   try {
     const data = req.body;
-    const subTaskId = req.params.sub_task_id;
+    const subTaskId = req.query.sub_task_id;
 
     //   const { error } = subTaskValidator.validate(data);
     //   if (error) {
@@ -19,9 +19,9 @@ exports.createOrUpdateSubTaskDetails = asyncHandler(async (req, res, next) => {
       data,
     );
 
-    await Promise.all([
-      subTaskService.updateSubTaskAssignees(subTaskId, data.sub_assignee_ids),
-    ]);
+    // await Promise.all([
+    //   subTaskService.updateSubTaskAssignees(subTaskId, data),
+    // ]);
 
     return res
       .status(STATUS_CODES.SUCCESS)

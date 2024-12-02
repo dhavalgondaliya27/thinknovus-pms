@@ -1,17 +1,14 @@
 const Client = require('../../models/client/client.model');
 
 const createOrUpdateClientDetails = async (clientId, data) => {
+  if (!clientId) {
+    const newClient = new Client(data);
+    return await newClient.save();
+  }
+
   return await Client.findOneAndUpdate(
     { _id: clientId },
-    {
-      name: data.name,
-      industry: data.industry,
-      website: data.website,
-      address: data.address,
-      country: data.country,
-      email: data.email,
-      phone: data.phone,
-    },
+    { $set: { ...data } },
     { upsert: true, new: true },
   );
 };
