@@ -4,12 +4,13 @@ const employeeTiming = require('../../controllers/employee/employeeTiming.contro
 
 const router = Router();
 
-router.post('/emp/punch-in', verifyJWT, employeeTiming.employeePunchIn);
-router.put(
-  '/emp/punch-out/:punch_id',
-  verifyJWT,
-  employeeTiming.employeePunchOut,
-);
+router.put('/emp/punch-handle', verifyJWT, employeeTiming.employeePunchHandle);
+// router.post('/emp/punch-in', verifyJWT, employeeTiming.employeePunchIn);
+// router.put(
+//   '/emp/punch-out/:punch_id',
+//   verifyJWT,
+//   employeeTiming.employeePunchOut,
+// );
 router.put(
   '/emp/start-end-break/:punch_id',
   verifyJWT,
