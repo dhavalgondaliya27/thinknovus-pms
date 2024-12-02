@@ -58,6 +58,22 @@ const Task = new mongoose.Schema(
     rating: {
       type: Number,
     },
+    task_timing: [
+      {
+        start_time: {
+          type: Date,
+        },
+        end_time: {
+          type: Date,
+        },
+        remark: {
+          type: String,
+        },
+        task_photo: {
+          type: String,
+        },
+      },
+    ],
   },
   {
     timestamps: true,

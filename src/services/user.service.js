@@ -16,18 +16,15 @@ const createUser = async (data) => {
 };
 
 const findUserByID = async (id) => {
-  const user = await User.findById(id).select('-password');
-  return user;
+  return await User.findById(id).select('-password');
 };
 
 const findUserByEmail = async (email) => {
-  const user = await User.findOne({ email });
-  return user;
+  return await User.findOne({ email });
 };
 
 const findUserByRefreshToken = async (refreshToken) => {
-  const user = await User.findOne({ refreshToken });
-  return user;
+  return await User.findOne({ refreshToken });
 };
 
 const hashPassword = async (password) => {
