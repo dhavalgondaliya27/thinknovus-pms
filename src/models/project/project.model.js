@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
 
-const Project = new mongoose.Schema(
+const Project = new Schema(
   {
     client_id: {
       type: Schema.Types.ObjectId,

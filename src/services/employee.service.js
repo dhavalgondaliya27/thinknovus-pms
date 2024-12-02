@@ -5,6 +5,9 @@ const UserBankDetails = require('../models/user/userBankDetails.model');
 const UserAddress = require('../models/user/userAddress.model');
 const UserProfessional = require('../models/user/userProfessional.model');
 const userService = require('../services/user.service');
+const identityDetails = require('../models/user/identityDetails.model');
+const userAddress = require('../models/user/userAddress.model');
+const contactInfo = require('../models/user/contactInfo.model');
 
 const createUser = async (data) => {
   return await User.create({
@@ -75,6 +78,7 @@ const createOrUpdateIdentityDetails = async (userId, data) => {
       pan_no: data.pan_no,
       aadhar_no: data.aadhar_no,
       passport_no: data.passport_no,
+      pf_no: data.pf_no,
       pan_url: data.pan_url,
       aadhar_url: data.aadhar_url,
       passport_url: data.passport_url,
@@ -137,6 +141,18 @@ const createOrUpdateUserAddress = async (userId, data) => {
   );
 };
 
+const getIdentityDetailsByUserId = async (userId) => {
+  return await identityDetails.findOne({ user_id: userId });
+};
+
+const getAddressByUserId = async (userId) => {
+  return await userAddress.findOne({ user_id: userId });
+};
+
+const getContactByUserId = async (userId) => {
+  return await contactInfo.find({ user_id: userId });
+};
+
 module.exports = {
   createUser,
   createOrUpdateUser,
@@ -145,4 +161,7 @@ module.exports = {
   createOrUpdateBankDetails,
   createOrUpdateProfessionalDetails,
   createOrUpdateUserAddress,
+  getIdentityDetailsByUserId,
+  getAddressByUserId,
+  getContactByUserId,
 };
