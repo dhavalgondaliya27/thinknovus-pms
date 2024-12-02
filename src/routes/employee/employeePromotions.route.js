@@ -9,6 +9,9 @@ router.post(
   employeePromotionsController.createOrUpdatePromotionsDetails,
 );
 
-router.get('/emp/get-emp-promotionsDetails/:user_id', employeePromotionsController.getEmployeePromotionsInfo);
+router.get(
+  '/emp/get-emp-promotionsDetails/:user_id',
+  employeePromotionsController.getEmployeePromotionsInfo,
+);
 
 module.exports = router;

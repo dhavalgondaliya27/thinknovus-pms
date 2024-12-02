@@ -13,7 +13,8 @@ const createOrUpdateJourneyDetailsInfo = async (userId, data) => {
       joining: data.joining,
       joining_not_applicable: data.joining_not_applicable,
       document_collection: data.document_collection,
-      document_collection_not_applicable: data.document_collection_not_applicable,
+      document_collection_not_applicable:
+        data.document_collection_not_applicable,
       training_period: data.training_period,
       training_period_not_applicable: data.training_period_not_applicable,
       probation_period: data.probation_period,
@@ -23,7 +24,8 @@ const createOrUpdateJourneyDetailsInfo = async (userId, data) => {
       notice_period: data.notice_period,
       notice_period_not_applicable: data.notice_period_not_applicable,
       overtime_hourly_amount: data.overtime_hourly_amount,
-      overtime_hourly_amount_not_applicable: data.overtime_hourly_amount_not_applicable,
+      overtime_hourly_amount_not_applicable:
+        data.overtime_hourly_amount_not_applicable,
       release: data.release,
       release_not_applicable: data.release_not_applicable,
       release_document: data.release_document,

@@ -9,6 +9,9 @@ router.post(
   employeeJourneyController.createOrUpdateJourneyDetails,
 );
 
-router.get('/emp/get-emp-journeyDetails/:user_id', employeeJourneyController.getEmployeeJourneyInfo);
+router.get(
+  '/emp/get-emp-journeyDetails/:user_id',
+  employeeJourneyController.getEmployeeJourneyInfo,
+);
 
 module.exports = router;

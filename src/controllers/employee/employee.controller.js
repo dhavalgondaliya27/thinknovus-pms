@@ -113,9 +113,7 @@ exports.getEmployeeInfo = asyncHandler(async (req, res, next) => {
     }
 
     // Fetch all users
-    const users = await userService.findAllUsers(
-      {},
-    );
+    const users = await userService.findAllUsers({});
 
     if (!users || users.length === 0) {
       return next(new ApiError('No users found', STATUS_CODES.NOT_FOUND));

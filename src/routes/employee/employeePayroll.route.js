@@ -9,6 +9,9 @@ router.post(
   employeePayrollController.createOrUpdatePayrollDetails,
 );
 
-router.get('/emp/get-emp-payrollDetails/:user_id', employeePayrollController.getEmployeePayrollInfo);
+router.get(
+  '/emp/get-emp-payrollDetails/:user_id',
+  employeePayrollController.getEmployeePayrollInfo,
+);
 
 module.exports = router;

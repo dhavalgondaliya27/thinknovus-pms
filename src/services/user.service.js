@@ -20,7 +20,9 @@ const findUserByID = async (id) => {
   return user;
 };
 const findAllUsers = async () => {
-  const users = await User.find().select('profile_image firstname lastname emp_code');
+  const users = await User.find().select(
+    'profile_image firstname lastname emp_code',
+  );
   return users;
 };
 
