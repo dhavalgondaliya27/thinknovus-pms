@@ -17,7 +17,7 @@ const IdentityDetail = new Schema(
     passport_no: {
       type: String,
     },
-    pf_no:{
+    pf_no: {
       type: String,
     },
     pan_url: {

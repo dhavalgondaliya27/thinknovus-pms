@@ -22,7 +22,7 @@ const UserPromotions = new Schema(
     },
     salary_duration: {
       type: String,
-      enum:['monthly','hourly'],
+      enum: ['monthly', 'hourly'],
     },
     salary: {
       type: String,
