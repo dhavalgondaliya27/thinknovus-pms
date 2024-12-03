@@ -39,7 +39,18 @@ const getJourneyInfo = async (userId) => {
   return UserJourney.findOne({ user_id: userId });
 };
 
+const getTotalJourneyCount = (userJourney) => {
+  if (!userJourney) return 0;
+  return Object.keys(userJourney.toObject()).reduce((count, key) => {
+    if (userJourney[key] === true && !key.endsWith('_not_applicable')) {
+      count += 1;
+    }
+    return count;
+  }, 0);
+};
+
 module.exports = {
   createOrUpdateJourneyDetailsInfo,
   getJourneyInfo,
+  getTotalJourneyCount,
 };

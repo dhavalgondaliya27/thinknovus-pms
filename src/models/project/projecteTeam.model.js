@@ -7,25 +7,25 @@ const ProjectTeam = new mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: 'Project',
     },
-    project_manager_id: [
+    project_manager_ids: [
       {
         type: Schema.Types.ObjectId,
         ref: 'User',
       },
     ],
-    supervisor_id: [
+    supervisor_ids: [
       {
         type: Schema.Types.ObjectId,
         ref: 'User',
       },
     ],
-    support_person_id: [
+    support_person_ids: [
       {
         type: Schema.Types.ObjectId,
         ref: 'User',
       },
     ],
-    team_member_id: [
+    team_member_ids: [
       {
         type: Schema.Types.ObjectId,
         ref: 'User',

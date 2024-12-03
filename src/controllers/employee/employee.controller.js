@@ -7,6 +7,9 @@ const userService = require('../../services/user.service');
 const empService = require('../../services/employee.service');
 const empPromotionService = require('../../services/employeePromotions.service');
 const empProfessionalService = require('../../services/employeeProfessional.service');
+const empJourneyService = require('../../services/employeeJourney.service');
+const empTaskService = require('../../services/task/task.services');
+const projectTeamService = require('../../services/project/projectTeam.service');
 
 exports.createEmployee = asyncHandler(async (req, res, next) => {
   try {
@@ -119,9 +122,20 @@ exports.getEmployeeInfo = asyncHandler(async (req, res, next) => {
         const promotionInfo = await empPromotionService.getPromotionsByUserId(
           user._id,
         );
+        // Fetch user journey and calculate true fields
+        const userJourney = await empJourneyService.getJourneyInfo(user._id);
+        const journeyCount =
+          empJourneyService.getTotalJourneyCount(userJourney);
+        const taskCount = await empTaskService.getTotalAssignedTasks(user._id);
+        const projectCount = await projectTeamService.getTotalAssignedProjects(
+          user._id,
+        );
         return {
           ...user.toObject(),
           designation: promotionInfo?.designation || null,
+          journey_count: journeyCount,
+          task_count: taskCount,
+          project_count: projectCount,
         };
       }),
     );

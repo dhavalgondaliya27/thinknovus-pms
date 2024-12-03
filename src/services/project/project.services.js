@@ -1,5 +1,4 @@
 const Project = require('../../models/project/project.model');
-const projecteTeam = require('../../models/project/projecteTeam.model');
 
 const createOrUpdateProjectDetails = async (projectId, data) => {
   if (!projectId) {
@@ -13,15 +12,18 @@ const createOrUpdateProjectDetails = async (projectId, data) => {
   );
 };
 
-const updateProjectTeamDetails = async (projectId, data) => {
-  return await projecteTeam.updateMany(
-    { project_id: projectId },
-    { $set: { team_members: data.team_members } },
-    { upsert: true },
-  );
+const findProjectByID = async (id) => {
+  const projectDetails = await Project.findById(id);
+  console.log(projectDetails, 'projectDetails');
+  return projectDetails;
+};
+
+const getProjectInfo = async (projectId) => {
+  return Project.findOne({ _id: projectId });
 };
 
 module.exports = {
   createOrUpdateProjectDetails,
-  updateProjectTeamDetails,
+  findProjectByID,
+  getProjectInfo,
 };

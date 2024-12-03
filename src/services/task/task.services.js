@@ -57,9 +57,13 @@ const getTaskByUserId = async (user_id) => {
 const getTaskById = async (task_id) => {
   return await Task.findById(task_id);
 };
-
+const getTotalAssignedTasks = async (userId) => {
+  const taskCount = await Task.countDocuments({ assignee_ids: userId });
+  return taskCount;
+};
 module.exports = {
   createOrUpdateTaskDetails,
   getTaskByUserId,
   getTaskById,
+  getTotalAssignedTasks,
 };
