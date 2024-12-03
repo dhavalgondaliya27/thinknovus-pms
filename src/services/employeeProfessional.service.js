@@ -44,7 +44,9 @@ const createOrUpdateUserAccessInfo = async (userId, data) => {
 };
 
 const getProfessionalInfo = async (userId) => {
-  return UserProfessional.findOne({ user_id: userId }).select('-createdAt -updatedAt -__v');
+  return UserProfessional.findOne({ user_id: userId }).select(
+    '-createdAt -updatedAt -__v',
+  );
 };
 
 const getAccessInfo = async (userId) => {

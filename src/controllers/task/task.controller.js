@@ -101,7 +101,7 @@ exports.manageTaskTiming = asyncHandler(async (req, res, next) => {
       }
       lastTask.end_time = end_time;
       lastTask.remark = remark;
-      if(task_photo){
+      if (task_photo) {
         lastTask.task_photo = task_photo;
       }
       await task.save();

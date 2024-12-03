@@ -200,9 +200,7 @@ exports.getOwnUserProfilePreview = asyncHandler(async (req, res, next) => {
   try {
     const user_id = req.user._id;
     if (!user_id) {
-      return next(
-        new ApiError('User not found', STATUS_CODES.NOT_ACCEPTABLE),
-      );
+      return next(new ApiError('User not found', STATUS_CODES.NOT_ACCEPTABLE));
     }
     const userData = await empService.getAllUserDetailsById(user_id);
     if (!userData) {

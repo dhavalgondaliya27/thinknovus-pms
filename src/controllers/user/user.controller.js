@@ -49,9 +49,7 @@ exports.getCurrentUser = asyncHandler(async (req, res, next) => {
     const user_id = req.user._id;
     console.log('object', req.user);
     if (!user_id) {
-      return next(
-        new ApiError('User not found', STATUS_CODES.NOT_ACCEPTABLE),
-      );
+      return next(new ApiError('User not found', STATUS_CODES.NOT_ACCEPTABLE));
     }
     const user = await userService.findUserByID(user_id);
     console.log(user);
@@ -135,9 +133,7 @@ exports.changePassword = asyncHandler(async (req, res, next) => {
       );
     }
     if (!user_id) {
-      return next(
-        new ApiError('User not found', STATUS_CODES.NOT_ACCEPTABLE),
-      );
+      return next(new ApiError('User not found', STATUS_CODES.NOT_ACCEPTABLE));
     }
     const hashPassword = await userService.comparePassword(
       password,
