@@ -2,22 +2,21 @@ const Joi = require('joi');
 
 exports.clientSchema = Joi.object({
   //client schema
-  project_id: Joi.string().required(),
+  project_id: Joi.string().optional(),
   company_name: Joi.string().required(),
   client_name: Joi.string().required(),
   client_phone: Joi.string()
     .pattern(/^\d{10,15}$/)
-    .required()
+    .optional()
     .messages({ 'string.pattern.base': 'Please enter a valid mobile number' }),
-  client_email: Joi.string().email().required(),
-  address: Joi.date().required(),
-  country: Joi.string().required(),
-  state: Joi.string().required(),
-  city: Joi.string().required(),
+  client_email: Joi.string().email().optional(),
+  address: Joi.string().optional(),
+  country: Joi.string().optional(),
+  state: Joi.string().optional(),
+  city: Joi.string().optional(),
   zipcode: Joi.string()
-    .required()
+    .optional()
     .pattern(/^\d{5}(-\d{4})?$/),
-  currency: Joi.string().required(),
-  employee_id: Joi.string().required(),
-  source: Joi.string().required(),
+  currency: Joi.string().optional(),
+  source: Joi.string().optional(),
 });

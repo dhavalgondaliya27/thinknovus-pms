@@ -28,7 +28,6 @@ const getPromotionsInfo = async (userId) => {
 
 const getAllPromotionsInfo = async () => {
   const promotion = await UserPromotions.find().select('designation');
-  console.log(promotion, 'promotion');
   return promotion;
 };
 
@@ -36,7 +35,6 @@ const getPromotionsByUserId = async (userId) => {
   const promotion = await UserPromotions.findOne({ user_id: userId }).select(
     'designation',
   );
-  console.log(promotion, 'promotion');
   return promotion;
 };
 

@@ -11,4 +11,9 @@ userRoutes.get(
   userController.getCurrentUser,
 );
 userRoutes.post('/user/login', userController.loginUser);
+userRoutes.post(
+  '/user/change-password',
+  verifyJWT,
+  userController.changePassword,
+);
 module.exports = userRoutes;

@@ -26,9 +26,10 @@ empRouter.get(
   '/emp/get-emp-personal-details/:id',
   verifyJWT,
   empController.getEmployeePersonalInfo,
+);
+empRouter.get(
   '/emp/get-employee-info',
   verifyJWT,
   empController.getEmployeeInfo,
 );
-
 module.exports = empRouter;

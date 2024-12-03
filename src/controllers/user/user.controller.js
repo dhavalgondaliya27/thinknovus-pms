@@ -49,9 +49,7 @@ exports.getCurrentUser = asyncHandler(async (req, res, next) => {
     const user_id = req.user._id;
     console.log('object', req.user);
     if (!user_id) {
-      return next(
-        new ApiError('Unauthorized user request', STATUS_CODES.UNAUTHORIZED),
-      );
+      return next(new ApiError('User not found', STATUS_CODES.NOT_ACCEPTABLE));
     }
     const user = await userService.findUserByID(user_id);
     console.log(user);
@@ -116,6 +114,50 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
     return next(
       new ApiError(
         error.message || 'Something went wrong',
+        STATUS_CODES.SERVER_ERROR,
+      ),
+    );
+  }
+});
+
+exports.changePassword = asyncHandler(async (req, res, next) => {
+  try {
+    const user_id = req.user._id;
+    const { password, newPassword } = req.body;
+    if (!password || !newPassword) {
+      return next(
+        new ApiError(
+          'Both password and new password are required',
+          STATUS_CODES.BAD_REQUEST,
+        ),
+      );
+    }
+    if (!user_id) {
+      return next(new ApiError('User not found', STATUS_CODES.NOT_ACCEPTABLE));
+    }
+    const hashPassword = await userService.comparePassword(
+      password,
+      req.user.password,
+    );
+    if (hashPassword) {
+      req.user.password = await userService.hashPassword(newPassword);
+      await req.user.save();
+      return res
+        .status(STATUS_CODES.SUCCESS)
+        .json(
+          new ApiResponse(
+            STATUS_CODES.SUCCESS,
+            null,
+            'Password change successfully',
+          ),
+        );
+    } else {
+      return next(new ApiError('Password are wrong', STATUS_CODES.BAD_REQUEST));
+    }
+  } catch (error) {
+    return next(
+      new ApiError(
+        error.message || 'Somrthing went wrong',
         STATUS_CODES.SERVER_ERROR,
       ),
     );
