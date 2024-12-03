@@ -16,7 +16,7 @@ const createUser = async (data) => {
 };
 
 const findUserByID = async (id) => {
-  return await User.findById(id).select('-password');
+  return await User.findById(id);
 };
 const findAllUsers = async () => {
   const users = await User.find().select(

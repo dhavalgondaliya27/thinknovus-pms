@@ -50,6 +50,16 @@ const createOrUpdateTaskDetails = async (taskId, data) => {
   }
 };
 
+const getTaskByUserId = async (user_id) => {
+  return await Task.find({ assignee_ids: { $in: [user_id] } });
+};
+
+const getTaskById = async (task_id) => {
+  return await Task.findById(task_id);
+};
+
 module.exports = {
   createOrUpdateTaskDetails,
+  getTaskByUserId,
+  getTaskById,
 };

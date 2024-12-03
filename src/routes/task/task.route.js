@@ -12,4 +12,16 @@ taskRoutes.post(
   taskController.createOrUpdateTaskDetails,
 );
 
+taskRoutes.get(
+  '/task/show-all-task',
+  verifyJWT,
+  taskController.showAllTaskByUser,
+);
+
+taskRoutes.put(
+  '/task/start-end-task/:task_id',
+  verifyJWT,
+  taskController.manageTaskTiming,
+);
+
 module.exports = taskRoutes;

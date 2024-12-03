@@ -8,6 +8,7 @@ const userService = require('../services/user.service');
 const identityDetails = require('../models/user/identityDetails.model');
 const userAddress = require('../models/user/userAddress.model');
 const contactInfo = require('../models/user/contactInfo.model');
+const { getProfessionalInfo } = require('./employeeProfessional.service');
 
 const createUser = async (data) => {
   return await User.create({
@@ -142,15 +143,37 @@ const createOrUpdateUserAddress = async (userId, data) => {
 };
 
 const getIdentityDetailsByUserId = async (userId) => {
-  return await identityDetails.findOne({ user_id: userId });
+  return await identityDetails
+    .findOne({ user_id: userId })
+    .select('-createdAt -updatedAt -__v');
 };
 
 const getAddressByUserId = async (userId) => {
-  return await userAddress.findOne({ user_id: userId });
+  return await userAddress
+    .findOne({ user_id: userId })
+    .select('-createdAt -updatedAt -__v');
 };
 
 const getContactByUserId = async (userId) => {
-  return await contactInfo.find({ user_id: userId });
+  return await contactInfo
+    .find({ user_id: userId })
+    .select('-createdAt -updatedAt -__v');
+};
+
+const getAllUserDetailsById = async (userId) => {
+  const user = await User.findById(userId);
+  const identity = await getIdentityDetailsByUserId(userId);
+  const address = await getAddressByUserId(userId);
+  const contact = await getContactByUserId(userId);
+  const professional = await getProfessionalInfo(userId);
+  const data = {
+    user: user.safe,
+    professional,
+    identity,
+    address,
+    contact,
+  };
+  return data;
 };
 
 module.exports = {
@@ -164,4 +187,5 @@ module.exports = {
   getIdentityDetailsByUserId,
   getAddressByUserId,
   getContactByUserId,
+  getAllUserDetailsById,
 };
