@@ -36,7 +36,7 @@ const SubTask = new mongoose.Schema(
     sub_task_end_date: {
       type: Date,
     },
-    sub_taworking_hours: {
+    sub_task_working_hours: {
       type: Number,
     },
     section: {
