@@ -8,7 +8,7 @@ const createOrUpdateProjectDetails = async (projectId, data) => {
   }
   return await Project.findOneAndUpdate(
     { _id: projectId },
-    { $set: { ...data } }, // Use $set to avoid overwriting the entire document
+    { $set: { ...data } },
     { upsert: true, new: true },
   );
 };

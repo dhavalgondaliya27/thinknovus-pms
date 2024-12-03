@@ -3,16 +3,17 @@ const ApiResponse = require('../../utils/apiResponse');
 const asyncHandler = require('../../utils/asyncHandler');
 const { STATUS_CODES } = require('../../utils/constants');
 const taskService = require('../../services/task/task.services');
+const taskValidator = require('../../validators/task/task.validator');
 
 exports.createOrUpdateTaskDetails = asyncHandler(async (req, res, next) => {
   try {
     const data = req.body;
-    const taskId = req.params.task_id;
+    const taskId = req.query.task_id;
 
-    // const { error } = taskValidator.validate(data);
-    // if (error) {
-    //   return next(new ApiError(error.message, STATUS_CODES.BAD_REQUEST));
-    // }
+    const { error } = taskValidator.taskSchema.validate(data);
+    if (error) {
+      return next(new ApiError(error.message, STATUS_CODES.BAD_REQUEST));
+    }
 
     const taskDetails = await taskService.createOrUpdateTaskDetails(
       taskId,

@@ -7,7 +7,7 @@ const projectService = require('../../services/project/project.services');
 exports.createOrUpdateProjectDetails = asyncHandler(async (req, res, next) => {
   try {
     const data = req.body;
-    const projectId = req.params.project_id;
+    const projectId = req.query.project_id;
 
     //   const { error } = projectValidator.validate(data);
     //   if (error) {

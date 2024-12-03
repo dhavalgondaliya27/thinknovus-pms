@@ -3,23 +3,22 @@ const ApiResponse = require('../../utils/apiResponse');
 const asyncHandler = require('../../utils/asyncHandler');
 const { STATUS_CODES } = require('../../utils/constants');
 const clientService = require('../../services/client/client.service');
+const clientValidator = require('../../validators/client.validator');
 
 exports.createOrUpdateClientDetails = asyncHandler(async (req, res, next) => {
   try {
     const data = req.body;
     const clientId = req.query.client_id;
 
-    //   const { error } = clientValidator.validate(data);
-    //   if (error) {
-    //     return next(new ApiError(error.message, STATUS_CODES.BAD_REQUEST));
-    //   }
+    const { error } = clientValidator.clientSchema.validate(data);
+    if (error) {
+      return next(new ApiError(error.message, STATUS_CODES.BAD_REQUEST));
+    }
 
     const clientDetails = await clientService.createOrUpdateClientDetails(
       clientId,
       data,
     );
-
-    // await Promise.all([clientService.updateClientContactInfo(clientId, data)]);
 
     return res
       .status(STATUS_CODES.SUCCESS)

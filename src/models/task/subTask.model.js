@@ -10,6 +10,10 @@ const SubTask = new mongoose.Schema(
     sub_ticket_id: {
       type: String,
     },
+    task_id: {
+      type: Schema.Types.ObjectId,
+      ref: 'Task',
+    },
     sub_assigned_by_id: {
       type: Schema.Types.ObjectId,
       ref: 'User',
@@ -36,7 +40,7 @@ const SubTask = new mongoose.Schema(
     sub_task_end_date: {
       type: Date,
     },
-    sub_taworking_hours: {
+    sub_task_working_hours: {
       type: Number,
     },
     section: {
