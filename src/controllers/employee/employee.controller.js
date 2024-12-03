@@ -107,16 +107,13 @@ exports.createOrupdateEmployeePersonalInfo = asyncHandler(
 exports.getEmployeeInfo = asyncHandler(async (req, res, next) => {
   try {
     const user_id = req.user;
-    // Check if the user is admin
     if (!user_id.is_admin) {
       return next(new ApiError('Unauthorized access', STATUS_CODES.FORBIDDEN));
     }
-    // Fetch all users
     const users = await userService.findAllUsers({});
     if (!users || users.length === 0) {
       return next(new ApiError('No users found', STATUS_CODES.NOT_FOUND));
     }
-    // Fetch promotions data for each user
     const usersWithDetails = await Promise.all(
       users.map(async (user) => {
         const promotionInfo = await empPromotionService.getPromotionsByUserId(
@@ -187,6 +184,37 @@ exports.getEmployeePersonalInfo = asyncHandler(async (req, res, next) => {
           STATUS_CODES.SUCCESS,
           responseData,
           'Employee data fatch successfully',
+        ),
+      );
+  } catch (error) {
+    return next(
+      new ApiError(
+        error.message || 'Something went wrong',
+        STATUS_CODES.SERVER_ERROR,
+      ),
+    );
+  }
+});
+
+exports.getOwnUserProfilePreview = asyncHandler(async (req, res, next) => {
+  try {
+    const user_id = req.user._id;
+    if (!user_id) {
+      return next(
+        new ApiError('User not found', STATUS_CODES.NOT_ACCEPTABLE),
+      );
+    }
+    const userData = await empService.getAllUserDetailsById(user_id);
+    if (!userData) {
+      return next(new ApiError('Userdata not found', STATUS_CODES.NOT_FOUND));
+    }
+    return res
+      .status(STATUS_CODES.SUCCESS)
+      .json(
+        new ApiResponse(
+          STATUS_CODES.SUCCESS,
+          userData,
+          'Userdata found successfully',
         ),
       );
   } catch (error) {

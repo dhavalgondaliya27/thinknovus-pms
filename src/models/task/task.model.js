@@ -38,7 +38,8 @@ const Task = new mongoose.Schema(
       enum: ['Pending', 'Hold', 'Completed', 'Cancelled', 'Archived'],
     },
     task_priority: {
-      type: Boolean,
+      type: String,
+      enum: ['High', 'Medium', 'Low', 'Clear'],
     },
     start_date: {
       type: Date,
