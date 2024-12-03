@@ -5,6 +5,7 @@ const { STATUS_CODES } = require('../../utils/constants');
 const empvalidaor = require('../../validators/employee.validator');
 const userService = require('../../services/user.service');
 const empService = require('../../services/employee.service');
+const empPromotionService = require('../../services/employeePromotions.service');
 const empProfessionalService = require('../../services/employeeProfessional.service');
 
 exports.createEmployee = asyncHandler(async (req, res, next) => {
@@ -103,6 +104,50 @@ exports.createOrupdateEmployeePersonalInfo = asyncHandler(
   },
 );
 
+exports.getEmployeeInfo = asyncHandler(async (req, res, next) => {
+  try {
+    const user_id = req.user;
+    // Check if the user is admin
+    if (!user_id.is_admin) {
+      return next(new ApiError('Unauthorized access', STATUS_CODES.FORBIDDEN));
+    }
+    // Fetch all users
+    const users = await userService.findAllUsers({});
+    if (!users || users.length === 0) {
+      return next(new ApiError('No users found', STATUS_CODES.NOT_FOUND));
+    }
+    // Fetch promotions data for each user
+    const usersWithDetails = await Promise.all(
+      users.map(async (user) => {
+        const promotionInfo = await empPromotionService.getPromotionsByUserId(
+          user._id,
+        );
+        return {
+          ...user.toObject(),
+          designation: promotionInfo?.designation || null,
+        };
+      }),
+    );
+    return res
+      .status(STATUS_CODES.SUCCESS)
+      .json(
+        new ApiResponse(
+          STATUS_CODES.SUCCESS,
+          usersWithDetails,
+          'Employee information fetched successfully',
+        ),
+      );
+  } catch (error) {
+    console.log(error);
+    return next(
+      new ApiError(
+        error.message || 'Something went wrong',
+        STATUS_CODES.SERVER_ERROR,
+      ),
+    );
+  }
+});
+
 exports.getEmployeePersonalInfo = asyncHandler(async (req, res, next) => {
   try {
     const user_id = req.params.id;
@@ -122,14 +167,12 @@ exports.getEmployeePersonalInfo = asyncHandler(async (req, res, next) => {
         empService.getAddressByUserId(user_id),
         empService.getContactByUserId(user_id),
       ]);
-
     const professionalInfo = {
       skype: professionalInfoData.skype,
       linkedin: professionalInfoData.linkedin,
       language: professionalInfoData.language,
       anniversary_date: professionalInfoData.anniversary_date,
     };
-
     const responseData = {
       user: user.safe,
       professionalInfo,
@@ -137,7 +180,6 @@ exports.getEmployeePersonalInfo = asyncHandler(async (req, res, next) => {
       address,
       contact,
     };
-
     return res
       .status(STATUS_CODES.SUCCESS)
       .json(

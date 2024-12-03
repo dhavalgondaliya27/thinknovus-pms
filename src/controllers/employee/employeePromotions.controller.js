@@ -4,6 +4,7 @@ const asyncHandler = require('../../utils/asyncHandler');
 const { STATUS_CODES } = require('../../utils/constants');
 const empvalidaor = require('../../validators/employee.validator');
 const empPromotionsService = require('../../services/employeePromotions.service');
+const userService = require('../../services/user.service');
 
 exports.createOrUpdatePromotionsDetails = asyncHandler(
   async (req, res, next) => {
@@ -39,3 +40,48 @@ exports.createOrUpdatePromotionsDetails = asyncHandler(
     }
   },
 );
+
+exports.getEmployeePromotionsInfo = asyncHandler(async (req, res, next) => {
+  try {
+    const user_id = req.params.user_id;
+
+    if (!user_id) {
+      return next(
+        new ApiError('User ID is required', STATUS_CODES.BAD_REQUEST),
+      );
+    }
+
+    // Fetch user data
+    const user = await userService.findUserByID(user_id);
+    if (!user) {
+      return next(new ApiError('User not found', STATUS_CODES.NOT_FOUND));
+    }
+
+    // Fetch associated promotions and access details
+    const [promotionsInfo] = await Promise.all([
+      empPromotionsService.getPromotionsInfo(user_id),
+    ]);
+
+    const responseData = {
+      promotionsInfo: promotionsInfo || {},
+    };
+
+    return res
+      .status(STATUS_CODES.SUCCESS)
+      .json(
+        new ApiResponse(
+          STATUS_CODES.SUCCESS,
+          responseData,
+          'Employee promotions information fetched successfully',
+        ),
+      );
+  } catch (error) {
+    console.log(error);
+    return next(
+      new ApiError(
+        error.message || 'Something went wrong',
+        STATUS_CODES.SERVER_ERROR,
+      ),
+    );
+  }
+});

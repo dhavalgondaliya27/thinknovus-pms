@@ -22,6 +22,27 @@ const createOrUpdatePromotionDetailsInfo = async (userId, data) => {
   );
 };
 
+const getPromotionsInfo = async (userId) => {
+  return UserPromotions.findOne({ user_id: userId });
+};
+
+const getAllPromotionsInfo = async () => {
+  const promotion = await UserPromotions.find().select('designation');
+  console.log(promotion, 'promotion');
+  return promotion;
+};
+
+const getPromotionsByUserId = async (userId) => {
+  const promotion = await UserPromotions.findOne({ user_id: userId }).select(
+    'designation',
+  );
+  console.log(promotion, 'promotion');
+  return promotion;
+};
+
 module.exports = {
   createOrUpdatePromotionDetailsInfo,
+  getPromotionsInfo,
+  getAllPromotionsInfo,
+  getPromotionsByUserId,
 };

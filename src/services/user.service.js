@@ -18,6 +18,12 @@ const createUser = async (data) => {
 const findUserByID = async (id) => {
   return await User.findById(id).select('-password');
 };
+const findAllUsers = async () => {
+  const users = await User.find().select(
+    'profile_image firstname lastname emp_code',
+  );
+  return users;
+};
 
 const findUserByEmail = async (email) => {
   return await User.findOne({ email });
@@ -38,6 +44,7 @@ const comparePassword = async (inputPassword, hashedPassword) => {
 module.exports = {
   createUser,
   findUserByID,
+  findAllUsers,
   findUserByEmail,
   findUserByRefreshToken,
   hashPassword,
