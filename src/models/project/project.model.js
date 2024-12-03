@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
 
-const Project = new mongoose.Schema(
+const Project = new Schema(
   {
     client_id: {
       type: Schema.Types.ObjectId,
@@ -16,7 +16,7 @@ const Project = new mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: 'Department',
     },
-    project_by_id: {
+    project_created_by_id: {
       type: Schema.Types.ObjectId,
       ref: 'User',
     },

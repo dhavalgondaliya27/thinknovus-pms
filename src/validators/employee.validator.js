@@ -43,6 +43,7 @@ exports.empSchema = Joi.object({
   pan_no: Joi.string().optional(),
   aadhar_no: Joi.string().optional(),
   passport_no: Joi.string().optional(),
+  pf_no: Joi.string().optional(),
   pan_url: Joi.string().uri().optional(),
   aadhar_url: Joi.string().uri().optional(),
   passport_url: Joi.string().uri().optional(),

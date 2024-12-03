@@ -5,7 +5,7 @@ exports.projectSchema = Joi.object({
   user_id: Joi.string().required(),
   project_name: Joi.string().required(),
   department_id: Joi.string().required(),
-  project_by_id: Joi.string().required(),
+  project_created_by_id: Joi.string().required(),
   project_start_date: Joi.date().required(),
   project_end_date: Joi.date().required().min(Joi.ref('project_start_date')),
   version: Joi.string(),

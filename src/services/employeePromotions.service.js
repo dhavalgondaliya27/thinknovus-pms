@@ -37,7 +37,6 @@ const getPromotionsByUserId = async (userId) => {
     'designation',
   );
   console.log(promotion, 'promotion');
-
   return promotion;
 };
 
