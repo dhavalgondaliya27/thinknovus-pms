@@ -37,10 +37,6 @@ const Client = new mongoose.Schema(
     currency: {
       type: String,
     },
-    employee_id: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-    },
     source: {
       type: String,
     },

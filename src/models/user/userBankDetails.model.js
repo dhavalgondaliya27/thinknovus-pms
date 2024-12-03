@@ -27,6 +27,10 @@ const UserBankDetails = new Schema(
     swift_code: {
       type: String,
     },
+    payment_process_type: {
+      type: String,
+      enum: ['Bank transfer', 'Manual', 'Cheque'],
+    },
   },
   {
     timestamps: true,

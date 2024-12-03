@@ -9,10 +9,10 @@ const UserProfessionalSummary = new Schema(
       required: true,
     },
     project_title: {
-      type: Date,
+      type: String,
     },
     interest: {
-      type: Date,
+      type: String,
     },
     designation: {
       type: String,
@@ -24,10 +24,10 @@ const UserProfessionalSummary = new Schema(
       type: String,
     },
     start_year_of_work: {
-      type: String,
+      type: Number,
     },
     end_year_of_work: {
-      type: Date,
+      type: Number,
     },
     description: {
       type: String,
@@ -39,16 +39,16 @@ const UserProfessionalSummary = new Schema(
       type: String,
     },
     minor_year: {
-      type: String,
+      type: Number,
     },
     major_year: {
-      type: String,
+      type: Number,
     },
     course_name: {
       type: String,
     },
     course_year: {
-      type: String,
+      type: Number,
     },
     course_duration: {
       type: String,
@@ -57,7 +57,7 @@ const UserProfessionalSummary = new Schema(
       type: String,
     },
     certificate_year: {
-      type: String,
+      type: Number,
     },
     certificate_type: {
       type: String,

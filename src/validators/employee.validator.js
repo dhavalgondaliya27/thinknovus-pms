@@ -43,6 +43,7 @@ exports.empSchema = Joi.object({
   pan_no: Joi.string().optional(),
   aadhar_no: Joi.string().optional(),
   passport_no: Joi.string().optional(),
+  pf_no: Joi.string().optional(),
   pan_url: Joi.string().uri().optional(),
   aadhar_url: Joi.string().uri().optional(),
   passport_url: Joi.string().uri().optional(),
@@ -65,6 +66,9 @@ exports.empSchema = Joi.object({
   IFSC: Joi.string().min(5).max(11).optional(),
   account_name: Joi.string().min(3).max(50).optional(),
   swift_code: Joi.string().optional(),
+  payment_process_type: Joi.string()
+    .valid('Bank transfer', 'Manual', 'Cheque')
+    .optional(),
 
   // Professional Details schema
   employee_type: Joi.string()
@@ -109,8 +113,10 @@ exports.empSchema = Joi.object({
   designation: Joi.string().optional(),
   paid_leave: Joi.number().optional(),
   start_date_of_promotion: Joi.date().optional(),
-  end_date_of_promotion: Joi.date().greater(Joi.ref('start_date_of_promotion')).optional(),
-  salary_duration: Joi.string().valid('monthly','hourly').optional(),
+  end_date_of_promotion: Joi.date()
+    .greater(Joi.ref('start_date_of_promotion'))
+    .optional(),
+  salary_duration: Joi.string().valid('monthly', 'hourly').optional(),
   salary: Joi.string().optional(),
   overtime_salary_type: Joi.string().optional(),
   employee_salary_setting: Joi.string().optional(),
@@ -118,25 +124,49 @@ exports.empSchema = Joi.object({
   currency: Joi.string().optional(),
   promotion_letter_doc: Joi.string().optional(),
 
+  //journey schema
+  offer_letter: Joi.boolean().optional(),
+  offer_letter_not_applicable: Joi.boolean().optional(),
+  pre_onboarding: Joi.boolean().optional(),
+  pre_onboarding_not_applicable: Joi.boolean().optional(),
+  joining: Joi.boolean().optional(),
+  joining_not_applicable: Joi.boolean().optional(),
+  document_collection: Joi.boolean().optional(),
+  document_collection_not_applicable: Joi.boolean().optional(),
+  training_period: Joi.boolean().optional(),
+  training_period_not_applicable: Joi.boolean().optional(),
+  probation_period: Joi.boolean().optional(),
+  probation_period_not_applicable: Joi.boolean().optional(),
+  resignation_letter: Joi.boolean().optional(),
+  resignation_letter_not_applicable: Joi.boolean().optional(),
+  notice_period: Joi.boolean().optional(),
+  notice_period_not_applicable: Joi.boolean().optional(),
+  overtime_hourly_amount: Joi.boolean().optional(),
+  overtime_hourly_amount_not_applicable: Joi.boolean().optional(),
+  release: Joi.boolean().optional(),
+  release_not_applicable: Joi.boolean().optional(),
+  release_document: Joi.boolean().optional(),
+  release_document_not_applicable: Joi.boolean().optional(),
+
   //professional summary details schema
   project_title: Joi.string(),
   interest: Joi.string().optional(),
-  designation: Joi.string(),
-  company_name: Joi.string(),
+  designation: Joi.string().optional(),
+  company_name: Joi.string().optional(),
   location: Joi.string().optional(),
-  start_year_of_work: Joi.string().pattern(/^\d{4}$/),
-  end_year_of_work: Joi.string().pattern(/^\d{4}$/),
+  start_year_of_work: Joi.number().optional(),
+  end_year_of_work: Joi.number()
+    .greater(Joi.ref('start_year_of_work'))
+    .optional(),
   description: Joi.string().optional(),
   degree: Joi.string(),
   institute: Joi.string(),
-  minor_year: Joi.string().pattern(/^\d{4}$/),
-  major_year: Joi.string().pattern(/^\d{4}$/),
+  minor_year: Joi.number(),
+  major_year: Joi.number().greater(Joi.ref('minor_year')),
   course_name: Joi.string(),
-  course_year: Joi.string().pattern(/^\d{4}$/),
+  course_year: Joi.number().optional(),
   course_duration: Joi.string(),
   certificate_name: Joi.string().optional(),
-  certificate_year: Joi.string()
-    .optional()
-    .pattern(/^\d{4}$/),
+  certificate_year: Joi.number().optional(),
   certificate_type: Joi.string().optional(),
 });

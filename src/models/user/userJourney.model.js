@@ -9,37 +9,70 @@ const UserJourney = new Schema(
       required: true,
     },
     offer_letter: {
-      type: String,
+      type: Boolean,
+    },
+    offer_letter_not_applicable: {
+      type: Boolean,
     },
     pre_onboarding: {
-      type: String,
+      type: Boolean,
+    },
+    pre_onboarding_not_applicable: {
+      type: Boolean,
     },
     joining: {
-      type: String,
+      type: Boolean,
+    },
+    joining_not_applicable: {
+      type: Boolean,
     },
     document_collection: {
-      type: String,
+      type: Boolean,
+    },
+    document_collection_not_applicable: {
+      type: Boolean,
     },
     training_period: {
-      type: String,
+      type: Boolean,
+    },
+    training_period_not_applicable: {
+      type: Boolean,
     },
     probation_period: {
-      type: String,
+      type: Boolean,
+    },
+    probation_period_not_applicable: {
+      type: Boolean,
     },
     resignation_letter: {
-      type: String,
+      type: Boolean,
+    },
+    resignation_letter_not_applicable: {
+      type: Boolean,
     },
     notice_period: {
-      type: Date,
+      type: Boolean,
+    },
+    notice_period_not_applicable: {
+      type: Boolean,
     },
     overtime_hourly_amount: {
-      type: String,
+      type: Boolean,
+    },
+    overtime_hourly_amount_not_applicable: {
+      type: Boolean,
     },
     release: {
-      type: String,
+      type: Boolean,
+    },
+    release_not_applicable: {
+      type: Boolean,
     },
     release_document: {
-      type: String,
+      type: Boolean,
+    },
+    release_document_not_applicable: {
+      type: Boolean,
     },
   },
   {
