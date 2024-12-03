@@ -122,8 +122,8 @@ exports.getEmployeeInfo = asyncHandler(async (req, res, next) => {
     // Fetch promotions data for each user
     const usersWithDetails = await Promise.all(
       users.map(async (user) => {
-        const promotionInfo = await empPromotionService.getAllPromotionsInfo(
-          {},
+        const promotionInfo = await empPromotionService.getPromotionsByUserId(
+          user._id,
         );
         return {
           ...user.toObject(),
