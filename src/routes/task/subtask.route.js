@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { verifyJWT } = require('../../middleware/auth.middleware');
-const subTaskController = require('../../controllers/task/subtask.controller');
+const subTaskController = require('../../controllers/task/subTask.controller');
 
 const subTaskRouter = Router();
 subTaskRouter.post(
