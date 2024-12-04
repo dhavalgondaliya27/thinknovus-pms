@@ -1,5 +1,5 @@
 // const User = require('../models/user/user.model');
-const UserPayroll = require('../models/user/userBankDetails.model');
+const UserPayroll = require('../../models/user/userBankDetails.model');
 
 const createOrUpdatePayrollDetailsInfo = async (userId, data) => {
   return await UserPayroll.findOneAndUpdate(

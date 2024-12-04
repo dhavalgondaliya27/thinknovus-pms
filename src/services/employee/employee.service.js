@@ -1,13 +1,13 @@
-const User = require('../models/user/user.model');
-const ContactInfo = require('../models/user/contactInfo.model');
-const IdentityDetail = require('../models/user/identityDetails.model');
-const UserBankDetails = require('../models/user/userBankDetails.model');
-const UserAddress = require('../models/user/userAddress.model');
-const UserProfessional = require('../models/user/userProfessional.model');
-const userService = require('../services/user.service');
-const identityDetails = require('../models/user/identityDetails.model');
-const userAddress = require('../models/user/userAddress.model');
-const contactInfo = require('../models/user/contactInfo.model');
+const User = require('../../models/user/user.model');
+const ContactInfo = require('../../models/user/contactInfo.model');
+const IdentityDetail = require('../../models/user/identityDetails.model');
+const UserBankDetails = require('../../models/user/userBankDetails.model');
+const UserAddress = require('../../models/user/userAddress.model');
+const UserProfessional = require('../../models/user/userProfessional.model');
+const userService = require('./user.service');
+const identityDetails = require('../../models/user/identityDetails.model');
+const userAddress = require('../../models/user/userAddress.model');
+const contactInfo = require('../../models/user/contactInfo.model');
 const { getProfessionalInfo } = require('./employeeProfessional.service');
 
 const createUser = async (data) => {

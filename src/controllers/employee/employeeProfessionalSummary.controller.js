@@ -3,8 +3,8 @@ const ApiResponse = require('../../utils/apiResponse');
 const asyncHandler = require('../../utils/asyncHandler');
 const { STATUS_CODES } = require('../../utils/constants');
 const empvalidaor = require('../../validators/employee.validator');
-const empProfessionalSummaryService = require('../../services/employeeProfessionalSummary.service');
-const userService = require('../../services/user.service');
+const empProfessionalSummaryService = require('../../services/employee/employeeProfessionalSummary.service');
+const userService = require('../../services/employee/user.service');
 
 exports.createOrUpdateProfessionalSummaryDetails = asyncHandler(
   async (req, res, next) => {

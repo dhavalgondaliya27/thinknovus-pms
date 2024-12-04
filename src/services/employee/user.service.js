@@ -1,12 +1,12 @@
 const bcrypt = require('bcrypt');
-const User = require('../models/user/user.model');
+const User = require('../../models/user/user.model');
 const {
   config: {
     auth: {
       opts: { salt },
     },
   },
-} = require('../config/config');
+} = require('../../config/config');
 
 const createUser = async (data) => {
   const newUser = await User.create(data);

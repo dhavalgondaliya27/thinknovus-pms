@@ -3,11 +3,11 @@ const ApiResponse = require('../../utils/apiResponse');
 const asyncHandler = require('../../utils/asyncHandler');
 const { STATUS_CODES } = require('../../utils/constants');
 const empvalidaor = require('../../validators/employee.validator');
-const userService = require('../../services/user.service');
-const empService = require('../../services/employee.service');
-const empPromotionService = require('../../services/employeePromotions.service');
-const empProfessionalService = require('../../services/employeeProfessional.service');
-const empJourneyService = require('../../services/employeeJourney.service');
+const userService = require('../../services/employee/user.service');
+const empService = require('../../services/employee/employee.service');
+const empPromotionService = require('../../services/employee/employeePromotions.service');
+const empProfessionalService = require('../../services/employee/employeeProfessional.service');
+const empJourneyService = require('../../services/employee/employeeJourney.service');
 const empTaskService = require('../../services/task/task.services');
 const projectTeamService = require('../../services/project/projectTeam.service');
 

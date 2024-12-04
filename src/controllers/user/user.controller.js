@@ -1,4 +1,4 @@
-const userService = require('../../services/user.service');
+const userService = require('../../services/employee/user.service');
 const uservalidator = require('../../validators/user.validator');
 const ApiError = require('../../utils/apiError');
 const ApiResponse = require('../../utils/apiResponse');

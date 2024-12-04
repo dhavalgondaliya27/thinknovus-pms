@@ -3,8 +3,8 @@ const ApiResponse = require('../../utils/apiResponse');
 const asyncHandler = require('../../utils/asyncHandler');
 const { STATUS_CODES } = require('../../utils/constants');
 const empvalidaor = require('../../validators/employee.validator');
-const empJourneyService = require('../../services/employeeJourney.service');
-const userService = require('../../services/user.service');
+const empJourneyService = require('../../services/employee/employeeJourney.service');
+const userService = require('../../services/employee/user.service');
 
 exports.createOrUpdateJourneyDetails = asyncHandler(async (req, res, next) => {
   try {

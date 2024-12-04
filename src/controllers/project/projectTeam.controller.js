@@ -4,7 +4,7 @@ const asyncHandler = require('../../utils/asyncHandler');
 const { STATUS_CODES } = require('../../utils/constants');
 const projectTeamService = require('../../services/project/projectTeam.service');
 const projectTeamValidator = require('../../validators/project.validator');
-const userService = require('../../services/user.service');
+const userService = require('../../services/employee/user.service');
 
 exports.createOrUpdateProjectTeamDetails = asyncHandler(
   async (req, res, next) => {
