@@ -167,7 +167,7 @@ const getAllUserDetailsById = async (userId) => {
   const contact = await getContactByUserId(userId);
   const professional = await getProfessionalInfo(userId);
   const data = {
-    user: user.safe,
+    user,
     professional,
     identity,
     address,

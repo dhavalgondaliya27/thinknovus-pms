@@ -5,7 +5,7 @@ const Project = new Schema(
   {
     client_id: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'Client',
       required: true,
     },
     project_name: {

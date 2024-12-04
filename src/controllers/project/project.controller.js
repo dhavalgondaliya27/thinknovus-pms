@@ -7,6 +7,7 @@ const projectService = require('../../services/project/project.services');
 exports.createOrUpdateProjectDetails = asyncHandler(async (req, res, next) => {
   try {
     const data = req.body;
+    const user_id = req.user._id;
     const projectId = req.query.project_id;
 
     //   const { error } = projectValidator.validate(data);
@@ -15,6 +16,7 @@ exports.createOrUpdateProjectDetails = asyncHandler(async (req, res, next) => {
     //   }
 
     const projectDetails = await projectService.createOrUpdateProjectDetails(
+      user_id,
       projectId,
       data,
     );
@@ -30,6 +32,32 @@ exports.createOrUpdateProjectDetails = asyncHandler(async (req, res, next) => {
       );
   } catch (error) {
     console.error(error);
+    return next(
+      new ApiError(
+        error.message || 'Something went wrong',
+        STATUS_CODES.SERVER_ERROR,
+      ),
+    );
+  }
+});
+
+exports.getAllProjectByUser = asyncHandler(async (req, res, next) => {
+  try {
+    const user_id = req.user._id;
+    if (!user_id) {
+      return next(new ApiError('User not found', STATUS_CODES.NOT_ACCEPTABLE));
+    }
+    const projects = await projectService.getAllProjectByUser(user_id);
+    return res
+      .status(STATUS_CODES.SUCCESS)
+      .json(
+        new ApiResponse(
+          STATUS_CODES.SUCCESS,
+          projects,
+          'Fatch all projects successfully',
+        ),
+      );
+  } catch (error) {
     return next(
       new ApiError(
         error.message || 'Something went wrong',
