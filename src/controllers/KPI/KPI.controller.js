@@ -42,10 +42,17 @@ exports.getAllKPIs = asyncHandler(async (req, res, next) => {
     const KPIs = await KPIService.getAllKPIs();
     return res
       .status(STATUS_CODES.SUCCESS)
-      .json(new ApiResponse(STATUS_CODES.SUCCESS, KPIs, 'KPI fetched successfully'));
+      .json(
+        new ApiResponse(STATUS_CODES.SUCCESS, KPIs, 'KPI fetched successfully'),
+      );
   } catch (error) {
     console.error(error);
-    return next(new ApiError(error.message || 'Something went wrong', STATUS_CODES.SERVER_ERROR));
+    return next(
+      new ApiError(
+        error.message || 'Something went wrong',
+        STATUS_CODES.SERVER_ERROR,
+      ),
+    );
   }
 });
 
@@ -58,9 +65,16 @@ exports.getKPIById = asyncHandler(async (req, res, next) => {
     }
     return res
       .status(STATUS_CODES.SUCCESS)
-      .json(new ApiResponse(STATUS_CODES.SUCCESS, KPI, 'KPI fetched successfully'));
+      .json(
+        new ApiResponse(STATUS_CODES.SUCCESS, KPI, 'KPI fetched successfully'),
+      );
   } catch (error) {
     console.error(error);
-    return next(new ApiError(error.message || 'Something went wrong', STATUS_CODES.SERVER_ERROR));
+    return next(
+      new ApiError(
+        error.message || 'Something went wrong',
+        STATUS_CODES.SERVER_ERROR,
+      ),
+    );
   }
 });

@@ -48,10 +48,21 @@ exports.getAllDepartments = asyncHandler(async (req, res, next) => {
     const departments = await departmentService.getAllDepartments();
     return res
       .status(STATUS_CODES.SUCCESS)
-      .json(new ApiResponse(STATUS_CODES.SUCCESS, departments, 'Departments fetched successfully'));
+      .json(
+        new ApiResponse(
+          STATUS_CODES.SUCCESS,
+          departments,
+          'Departments fetched successfully',
+        ),
+      );
   } catch (error) {
     console.error(error);
-    return next(new ApiError(error.message || 'Something went wrong', STATUS_CODES.SERVER_ERROR));
+    return next(
+      new ApiError(
+        error.message || 'Something went wrong',
+        STATUS_CODES.SERVER_ERROR,
+      ),
+    );
   }
 });
 
@@ -64,10 +75,20 @@ exports.getDepartmentById = asyncHandler(async (req, res, next) => {
     }
     return res
       .status(STATUS_CODES.SUCCESS)
-      .json(new ApiResponse(STATUS_CODES.SUCCESS, department, 'Department fetched successfully'));
+      .json(
+        new ApiResponse(
+          STATUS_CODES.SUCCESS,
+          department,
+          'Department fetched successfully',
+        ),
+      );
   } catch (error) {
     console.error(error);
-    return next(new ApiError(error.message || 'Something went wrong', STATUS_CODES.SERVER_ERROR));
+    return next(
+      new ApiError(
+        error.message || 'Something went wrong',
+        STATUS_CODES.SERVER_ERROR,
+      ),
+    );
   }
 });
-

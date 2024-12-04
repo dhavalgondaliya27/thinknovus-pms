@@ -83,4 +83,3 @@ exports.getProjectInfo = asyncHandler(async (req, res, next) => {
     );
   }
 });
-

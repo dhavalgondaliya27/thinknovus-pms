@@ -8,15 +8,7 @@ KPIRoutes.post(
   verifyJWT,
   KPIController.createOrUpdateKPIDetails,
 );
-KPIRoutes.get(
-  '/KPI/getAllKPIs',
-  verifyJWT,
-  KPIController.getAllKPIs,
-);
-KPIRoutes.get(
-  '/KPI/getKPIById/:KPI_id',
-  verifyJWT,
-  KPIController.getKPIById,
-);
+KPIRoutes.get('/KPI/getAllKPIs', verifyJWT, KPIController.getAllKPIs);
+KPIRoutes.get('/KPI/getKPIById/:KPI_id', verifyJWT, KPIController.getKPIById);
 
 module.exports = KPIRoutes;
