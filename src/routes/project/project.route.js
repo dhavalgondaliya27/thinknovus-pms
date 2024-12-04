@@ -16,4 +16,9 @@ projectRoutes.get(
   verifyJWT,
   projectController.getProjectInfo,
 );
+projectRoutes.get(
+  '/project/get-user-projects',
+  verifyJWT,
+  projectController.getAllProjectByUser,
+);
 module.exports = projectRoutes;

@@ -15,7 +15,6 @@ const createOrUpdateTaskDetails = async (taskId, data) => {
       const lastTask = await Task.findOne({ project_id: data.project_id })
         .sort({ ticket_id: -1 })
         .select('ticket_id');
-      console.log(lastTask);
       let nextTicketCount = 1;
 
       if (lastTask && lastTask.ticket_id) {
@@ -50,6 +49,33 @@ const createOrUpdateTaskDetails = async (taskId, data) => {
   }
 };
 
+const getTaskByProjectId = async (project_id) => {
+  return await Task.find({ project_id })
+    .populate({
+      path: 'assigned_by_id',
+      select: 'firstname lastname profile_image',
+    })
+    .populate({
+      path: 'assignee_ids',
+      select: 'firstname lastname profile_image',
+    })
+    .populate({
+      path: 'sub_task_ids',
+      select:
+        'sub_assigned_by_id sub_assignee_ids sub_task_name sub_task_status sub_task_priority sub_task_start_date sub_task_end_date',
+      populate: [
+        {
+          path: 'sub_assigned_by_id',
+          select: 'firstname lastname profile_image',
+        },
+        {
+          path: 'sub_assignee_ids',
+          select: 'firstname lastname profile_image',
+        },
+      ],
+    });
+};
+
 const getTaskByUserId = async (user_id) => {
   return await Task.find({ assignee_ids: { $in: [user_id] } });
 };
@@ -63,6 +89,7 @@ const getTotalAssignedTasks = async (userId) => {
 };
 module.exports = {
   createOrUpdateTaskDetails,
+  getTaskByProjectId,
   getTaskByUserId,
   getTaskById,
   getTotalAssignedTasks,

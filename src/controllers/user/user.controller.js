@@ -105,7 +105,7 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
       .json(
         new ApiResponse(
           STATUS_CODES.SUCCESS,
-          user.safe,
+          user,
           'User logged in successfully',
         ),
       );

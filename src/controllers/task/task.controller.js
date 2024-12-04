@@ -4,6 +4,7 @@ const asyncHandler = require('../../utils/asyncHandler');
 const { STATUS_CODES } = require('../../utils/constants');
 const taskService = require('../../services/task/task.services');
 const taskValidator = require('../../validators/task/task.validator');
+// const userService = require('../../services/employee/user.service');
 
 exports.createOrUpdateTaskDetails = asyncHandler(async (req, res, next) => {
   try {
@@ -31,6 +32,36 @@ exports.createOrUpdateTaskDetails = asyncHandler(async (req, res, next) => {
       );
   } catch (error) {
     console.error(error);
+    return next(
+      new ApiError(
+        error.message || 'Something went wrong',
+        STATUS_CODES.SERVER_ERROR,
+      ),
+    );
+  }
+});
+
+exports.showAllTaskByProject = asyncHandler(async (req, res, next) => {
+  try {
+    const user_id = req.user._id;
+    const project_id = req.params.project_id;
+    if (!user_id) {
+      return next(new ApiError('User not found', STATUS_CODES.NOT_ACCEPTABLE));
+    }
+    const tasks = await taskService.getTaskByProjectId(project_id);
+    if (!tasks) {
+      return next(new ApiError('Tasks not found', STATUS_CODES.NOT_FOUND));
+    }
+    return res
+      .status(STATUS_CODES.SUCCESS)
+      .json(
+        new ApiResponse(
+          STATUS_CODES.SUCCESS,
+          tasks,
+          'Tasks found successfully',
+        ),
+      );
+  } catch (error) {
     return next(
       new ApiError(
         error.message || 'Something went wrong',
@@ -131,4 +162,54 @@ exports.manageTaskTiming = asyncHandler(async (req, res, next) => {
       ),
     );
   }
+});
+
+exports.changeTaskPriority = asyncHandler(async (req, res, next) => {
+  const task_id = req.params.task_id;
+  const { priority } = req.body;
+  if (!priority) {
+    return next(
+      new ApiError('Priority field is require', STATUS_CODES.BAD_REQUEST),
+    );
+  }
+  const task = await taskService.getTaskById(task_id);
+  if (!task) {
+    return next(new ApiError('Task not found', STATUS_CODES.NOT_FOUND));
+  }
+  task.task_priority = priority;
+  await task.save();
+  return res
+    .status(STATUS_CODES.SUCCESS)
+    .json(
+      new ApiResponse(
+        STATUS_CODES.SUCCESS,
+        null,
+        'Task priority status update successfully',
+      ),
+    );
+});
+
+exports.changeTaskStatus = asyncHandler(async (req, res, next) => {
+  const task_id = req.params.task_id;
+  const { status } = req.body;
+  if (!status) {
+    return next(
+      new ApiError('Status field is require', STATUS_CODES.BAD_REQUEST),
+    );
+  }
+  const task = await taskService.getTaskById(task_id);
+  if (!task) {
+    return next(new ApiError('Task not found', STATUS_CODES.NOT_FOUND));
+  }
+  task.task_status = status;
+  await task.save();
+  return res
+    .status(STATUS_CODES.SUCCESS)
+    .json(
+      new ApiResponse(
+        STATUS_CODES.SUCCESS,
+        null,
+        'Task status update successfully',
+      ),
+    );
 });
