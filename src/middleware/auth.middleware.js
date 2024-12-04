@@ -1,6 +1,6 @@
 const ApiError = require('../utils/apiError');
 const asyncHandler = require('../utils/asyncHandler');
-const userService = require('../services/user.service');
+const userService = require('../services/employee/user.service');
 const { STATUS_CODES } = require('../utils/constants');
 const {
   decodeToken,

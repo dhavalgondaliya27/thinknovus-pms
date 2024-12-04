@@ -1,5 +1,5 @@
 // const User = require('../models/user/user.model');
-const UserProfessionalSummary = require('../models/user/userProfessionalSummary.model');
+const UserProfessionalSummary = require('../../models/user/userProfessionalSummary.model');
 
 const createOrUpdateProfessionalSummaryDetailsInfo = async (userId, data) => {
   return await UserProfessionalSummary.findOneAndUpdate(

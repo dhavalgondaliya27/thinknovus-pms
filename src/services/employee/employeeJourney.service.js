@@ -1,5 +1,5 @@
 // const User = require('../models/user/user.model');
-const UserJourney = require('../models/user/userJourney.model');
+const UserJourney = require('../../models/user/userJourney.model');
 
 const createOrUpdateJourneyDetailsInfo = async (userId, data) => {
   return await UserJourney.findOneAndUpdate(

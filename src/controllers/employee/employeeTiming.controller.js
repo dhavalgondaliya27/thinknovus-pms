@@ -1,4 +1,4 @@
-const empTiming = require('../../services/employeeTiming.service');
+const empTiming = require('../../services/employee/employeeTiming.service');
 const ApiError = require('../../utils/apiError');
 const ApiResponse = require('../../utils/apiResponse');
 const asyncHandler = require('../../utils/asyncHandler');

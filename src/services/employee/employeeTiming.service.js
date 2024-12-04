@@ -1,4 +1,4 @@
-const emptiming = require('../models/employeeTiming/emptiming.model');
+const emptiming = require('../../models/employeeTiming/emptiming.model');
 
 const createPunchIn = async (user_id, punch_id) => {
   const date = new Date(punch_id);

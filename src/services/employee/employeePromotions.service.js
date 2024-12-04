@@ -1,5 +1,5 @@
 // const User = require('../models/user/user.model');
-const UserPromotions = require('../models/user/userPromotions.model');
+const UserPromotions = require('../../models/user/userPromotions.model');
 
 const createOrUpdatePromotionDetailsInfo = async (userId, data) => {
   return await UserPromotions.findOneAndUpdate(
