@@ -39,3 +39,48 @@ exports.createOrUpdateClientDetails = asyncHandler(async (req, res, next) => {
     );
   }
 });
+
+exports.getClientInfo = asyncHandler(async (req, res, next) => {
+  try {
+    const client_id = req.params.client_id;
+
+    if (!client_id) {
+      return next(
+        new ApiError('Client ID is required', STATUS_CODES.BAD_REQUEST),
+      );
+    }
+
+    // Fetch client data
+    const client = await clientService.findClientById(client_id);
+    if (!client) {
+      return next(new ApiError('Client not found', STATUS_CODES.NOT_FOUND));
+    }
+
+    // Fetch client details
+    const [clientInfo] = await Promise.all([
+      clientService.getClientInfo(client_id),
+    ]);
+
+    const responseData = {
+      clientInfo: clientInfo || {},
+    };
+
+    return res
+      .status(STATUS_CODES.SUCCESS)
+      .json(
+        new ApiResponse(
+          STATUS_CODES.SUCCESS,
+          responseData,
+          'Client information fetched successfully',
+        ),
+      );
+  } catch (error) {
+    console.log(error);
+    return next(
+      new ApiError(
+        error.message || 'Something went wrong',
+        STATUS_CODES.SERVER_ERROR,
+      ),
+    );
+  }
+});

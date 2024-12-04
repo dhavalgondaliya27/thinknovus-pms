@@ -9,5 +9,10 @@ clientRoutes.post(
   verifyJWT,
   clientController.createOrUpdateClientDetails,
 );
+clientRoutes.get(
+  '/client/getClientDetails/:client_id',
+  verifyJWT,
+  clientController.getClientInfo,
+);
 
 module.exports = clientRoutes;
