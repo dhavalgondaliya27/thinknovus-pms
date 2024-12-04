@@ -185,7 +185,7 @@ exports.getEmployeePersonalInfo = asyncHandler(async (req, res, next) => {
       anniversary_date: professionalInfoData.anniversary_date,
     };
     const responseData = {
-      user: user.safe,
+      user,
       professionalInfo,
       identity,
       address,

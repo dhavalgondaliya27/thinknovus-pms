@@ -13,7 +13,13 @@ taskRoutes.post(
 );
 
 taskRoutes.get(
-  '/task/show-all-task',
+  '/task/get-project-all-task/:project_id',
+  verifyJWT,
+  taskController.showAllTaskByProject,
+);
+
+taskRoutes.get(
+  '/task/get-user-all-task',
   verifyJWT,
   taskController.showAllTaskByUser,
 );
@@ -22,6 +28,18 @@ taskRoutes.put(
   '/task/start-end-task/:task_id',
   verifyJWT,
   taskController.manageTaskTiming,
+);
+
+taskRoutes.put(
+  '/task/change-task-priority/:task_id',
+  verifyJWT,
+  taskController.changeTaskPriority,
+);
+
+taskRoutes.put(
+  '/task/change-task-status/:task_id',
+  verifyJWT,
+  taskController.changeTaskStatus,
 );
 
 module.exports = taskRoutes;

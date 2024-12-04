@@ -13,6 +13,18 @@ const createOrUpdateClientDetails = async (clientId, data) => {
   );
 };
 
+const findClientById = async (id) => {
+  const clientInfo = await Client.findById(id);
+  return clientInfo;
+};
+
+const getClientInfo = async (clientId) => {
+  const info = await Client.findOne({ _id: clientId });
+  return info;
+};
+
 module.exports = {
   createOrUpdateClientDetails,
+  findClientById,
+  getClientInfo,
 };

@@ -81,14 +81,14 @@ const User = new mongoose.Schema(
   },
 );
 
-User.virtual('safe').get(function () {
-  const user = this.toObject();
-  delete user.password;
-  delete user.refresh_token;
-  return user;
-});
-User.set('toJSON', {
-  virtuals: true,
-});
+// User.virtual('safe').get(function () {
+//   const user = this.toObject();
+//   delete user.password;
+//   delete user.refresh_token;
+//   return user;
+// });
+// User.set('toJSON', {
+//   virtuals: true,
+// });
 
 module.exports = mongoose.model('User', User);
