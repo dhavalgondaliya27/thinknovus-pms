@@ -39,6 +39,10 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
   res.send('PMS is running ...');
 });
+app.post('/email',(req,res)=>{
+  const email = req.body.email;
+  return res.status(200).json({email});
+});
 app.use(helmet());
 app.use(mongoSanitize());
 app.use(xss());
